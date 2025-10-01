@@ -3,13 +3,30 @@
 -- Add any additional keymaps here
 vim.g.maplocalleader = " "
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 
 local map = vim.api.nvim_set_keymap
 local del = vim.api.nvim_del_keymap
 local set = vim.keymap.set
 -- 复用 opt 参数
 local opt = { noremap = true, silent = true }
+-- 删除操作（不复制到寄存器）
+set("n", "d", '"_d', { desc = "Delete without copying to register" })
+set("n", "dd", '"_dd', { desc = "Delete line without copying to register" })
+set("n", "D", '"_D', { desc = "Delete to EOL without copying to register" })
+set("v", "d", '"_d', { desc = "Delete visually selected without copying to register" })
+
+-- 修改操作（不复制到寄存器）
+set("n", "c", '"_c', { desc = "Change without copying to register" })
+set("v", "c", '"_c', { desc = "Change visually selected without copying to register" })
+set("n", "cc", '"_cc', { desc = "Change line without copying to register" })
+
+-- 粘贴操作（先清空目标内容，再从系统剪贴板粘贴）
+set("v", "p", '"_c<Esc>"+p', { desc = "Paste from system clipboard (overwrite)" })
+set("v", "P", '"_c<Esc>"+P', { desc = "Paste before from system clipboard (overwrite)" })
+
+-- 复制操作（复制到系统剪贴板）
+set("v", "y", '"+y', { desc = "Copy to system clipboard" })
+set("n", "yy", '"+yy', { desc = "Copy line to system clipboard" })
 
 -- 取消 s 默认功能
 map("n", "s", "", opt)
@@ -73,7 +90,10 @@ local pluginKeys = {}
 -- 列表快捷键
 pluginKeys.nvimTreeList = {
   -- 打开文件或文件夹
-  { key = { "<CR>", "o", "<2-LeftMouse>" }, action = "edit" },
+  {
+    key = { "<CR>", "o", "<2-LeftMouse>" },
+    action = "edit",
+  },
   -- 分屏打开文件
   { key = "v", action = "vsplit" },
   { key = "h", action = "split" },
@@ -96,15 +116,27 @@ map("n", "H", ":BufferLineCyclePrev<CR>", opt)
 map("n", "L", ":BufferLineCycleNext<CR>", opt)
 -- 关闭
 --"moll/vim-bbye"
-map("n", "x", ":Bdelete!<CR>", opt)
+map("n", "x", ":bdelete!<CR>", opt)
 map("n", "<leader>bl", ":BufferLineCloseRight<CR>", opt)
 map("n", "<leader>bh", ":BufferLineCloseLeft<CR>", opt)
 map("n", "<leader>bc", ":BufferLinePickClose<CR>", opt)
 
--- local builtin = require('telescope.builtin')
--- set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
--- set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
--- set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
--- set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+local builtin = require("telescope.builtin")
+set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
+set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
+set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
+set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+
+-- 格式化代码（使用 LSP 或外部工具）
+set("n", "<S-M-f>", function()
+  -- 如果有 LSP，优先使用 LSP 格式化
+  if vim.lsp.buf.format then
+    vim.lsp.buf.format({ async = true })
+  else
+    -- 否则尝试用外部工具（如 prettier、clang-format 等）
+    vim.cmd("silent! !prettier --write %")
+    vim.cmd("edit!") -- 重新加载文件（如果外部工具修改了内容）
+  end
+end, { desc = "Format code with LSP or external tool" })
 
 return pluginKeys
