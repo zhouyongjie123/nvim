@@ -6,6 +6,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 local map = vim.api.nvim_set_keymap
+local del = vim.api.nvim_del_keymap
 local set = vim.keymap.set
 -- 复用 opt 参数
 local opt = { noremap = true, silent = true }
