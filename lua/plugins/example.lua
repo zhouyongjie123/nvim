@@ -100,6 +100,7 @@ return {
         "typescript",
         "vim",
         "yaml",
+        "java",
       },
     },
   },
