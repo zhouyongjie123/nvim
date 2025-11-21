@@ -1,11 +1,10 @@
 return {
-	-- 1. noice.nvim：命令行居中 + 消息管理
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		dependencies = {
 			"MunifTanjim/nui.nvim",
-			"rcarriga/nvim-notify", -- 可选：通知美化
+			"rcarriga/nvim-notify",
 		},
 		config = function()
 			require("noice").setup({
@@ -13,9 +12,8 @@ return {
 					override = {
 						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 						["vim.lsp.util.stylize_markdown"] = true,
-						["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+						["cmp.entry.get_documentation"] = true,
 					},
-					-- you can enable a preset for easier configuration
 					presets = {
 						bottom_search = true, -- use a classic bottom cmdline for search
 						command_palette = true, -- position the cmdline and popupmenu together
@@ -28,7 +26,6 @@ return {
 		end,
 	},
 
-	-- 3. 可选：nvim-notify 美化通知（搭配 noice）
 	{
 		"rcarriga/nvim-notify",
 		config = function()

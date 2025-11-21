@@ -1,40 +1,30 @@
--- 放在 ~/.config/nvim/lua/plugins/cmp.lua（或 plugins/init.lua 中）
 return {
-	-- 核心补全框架
 	{
 		"hrsh7th/nvim-cmp",
-		event = { "InsertEnter", "CmdlineEnter" }, -- 插入模式 + 命令行模式触发
+		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = {
-			-- 补全源（必选）
 			"hrsh7th/cmp-cmdline", -- 命令行补全
 			"hrsh7th/cmp-path", -- 路径补全
 			"hrsh7th/cmp-nvim-lsp", -- LSP 语法补全
-			-- 补全源（推荐）
 			"hrsh7th/cmp-buffer", -- 缓冲区补全
 			"hrsh7th/cmp-nvim-lua", -- Lua API 补全
-			-- 代码片段（推荐）
 			"L3MON4D3/LuaSnip", -- 代码片段引擎
 			"saadparwaiz1/cmp_luasnip", -- 联动 nvim-cmp 和 LuaSnip
-			-- 可选：图标支持
 			"nvim-tree/nvim-web-devicons",
 		},
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
-			local icons = require("nvim-web-devicons") -- 图标支持（可选）
-
-			-- 配置代码片段触发键（可选，如 Tab 展开片段）
+			local icons = require("nvim-web-devicons")
 			luasnip.config.setup({
 				history = true, -- 记住上次展开的片段
 				updateevents = "TextChanged,TextChangedI", -- 文本变化时更新片段
 			})
 
-			-- 核心补全配置
 			cmp.setup({
-				-- 代码片段支持
 				snippet = {
 					expand = function(args)
-						luasnip.lsp_expand(args.body) -- 用 LuaSnip 展开片段
+						luasnip.lsp_expand(args.body)
 					end,
 				},
 
@@ -88,7 +78,7 @@ return {
 						border = "rounded", -- 圆角边框
 						winhighlight = "Normal:CmpPmenu,FloatBorder:CmpPmenuBorder,Search:None",
 					}),
-					documentation = cmp.config.window.bordered({ border = "rounded" }), -- 补全文档边框
+					documentation = cmp.config.window.bordered({ border = "rounded" }),
 				},
 
 				-- 补全项格式（显示图标 + 类型 + 来源）
@@ -133,9 +123,9 @@ return {
 						-- 显示补全项来源（如 LSP、缓冲区、路径等）
 						item.menu = ({
 							nvim_lsp = "[LSP]",
-							luasnip = "[片段]",
-							buffer = "[缓冲区]",
-							path = "[路径]",
+							luasnip = "[Clip]",
+							buffer = "[Buffer]",
+							path = "[Path]",
 							nvim_lua = "[NVim]",
 						})[entry.source.name]
 
@@ -147,18 +137,14 @@ return {
 				experimental = { ghost_text = true }, -- 幽灵文本（灰色显示完整补全建议）
 				sorting = {
 					comparators = {
-						cmp.config.compare.offset, -- 按偏移量排序
-						cmp.config.compare.exact, -- 精确匹配优先
-						cmp.config.compare.score, -- 按分数排序
-						cmp.config.compare.kind, -- 按类型排序
+						cmp.config.compare.offset,
+						cmp.config.compare.exact,
+						cmp.config.compare.score,
+						cmp.config.compare.kind,
 					},
 				},
 			})
 
-			-- ##############################
-			-- 命令行模式补全配置（关键！）
-			-- ##############################
-			-- 1. : 命令行补全（如 :TSUpdate、:e 文件名）
 			cmp.setup.cmdline(":", {
 				mapping = cmp.mapping.preset.cmdline({
 					["<Tab>"] = cmp.mapping.select_next_item(),
@@ -166,12 +152,11 @@ return {
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
 				}),
 				sources = cmp.config.sources({
-					{ name = "path" }, -- 路径补全（如 :e 补全文件路径）
-					{ name = "cmdline" }, -- 命令补全（如 :TS 补全 :TSUpdate）
+					{ name = "path" },
+					{ name = "cmdline" },
 				}),
 			})
 
-			-- 2. / ? 搜索模式补全（搜索时补全缓冲区文本）
 			cmp.setup.cmdline({ "/", "?" }, {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = { { name = "buffer" } },
@@ -179,7 +164,6 @@ return {
 		end,
 	},
 
-	-- 可选：安装常用代码片段（如 Lua、Python、JS 等）
 	{
 		"rafamadriz/friendly-snippets",
 		dependencies = { "L3MON4D3/LuaSnip" },
