@@ -30,7 +30,7 @@ return {
 
 				-- 快捷键配置（和 blink.cmp 习惯对齐，可自定义）
 				mapping = cmp.mapping.preset.insert({
-					["<CR>"] = cmp.mapping(function(fallback)
+					["<C-j>"] = cmp.mapping(function(fallback)
 						-- 如果有补全菜单，选中下一个
 						if cmp.visible() then
 							cmp.select_next_item()
@@ -43,7 +43,7 @@ return {
 						end
 					end, { "i", "s" }),
 
-					["<S-Tab>"] = cmp.mapping(function(fallback)
+					["<C-k>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_prev_item() -- 选中上一个补全项
 						elseif luasnip.jumpable(-1) then
