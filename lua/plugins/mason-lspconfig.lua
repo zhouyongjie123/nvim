@@ -8,7 +8,7 @@ return {
 				package_uninstalled = "x",
 			},
 		},
-		ensure_installed = { "lua_ls", "rust_analyzer" },
+		ensure_installed = { "lua_ls", "rust_analyzer", "jdtls" },
 	},
 	dependencies = {
 		{ "mason-org/mason.nvim", opts = {} },
