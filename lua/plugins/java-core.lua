@@ -4,6 +4,37 @@ return {
 		"mfussenegger/nvim-jdtls",
 		ft = "java",
 		config = function()
+			local current_buf = vim.api.nvim_get_current_buf()
+			local current_file = vim.api.nvim_buf_get_name(current_buf)
+			if
+				not vim.api.nvim_buf_is_valid(current_buf)
+				or current_file == ""
+				or not current_file:match("%.java$")
+			then
+				vim.notify("未检测到有效 Java 文件，跳过 jdtls 启动", vim.log.levels.DEBUG)
+				return
+			end
+
+			-- 校验2：检测项目根目录（确保在 Java 项目中）
+			local project_root = require("jdtls.setup").find_root({
+				".git",
+				"mvnw",
+				"gradlew",
+				"pom.xml",
+				"build.gradle",
+				".project",
+				"build.xml", -- 扩展支持非 Maven/Gradle 项目
+			})
+			if not project_root then
+				-- 可选：如果是孤立 Java 文件（无项目），是否启动基础功能？
+				-- 方案A：仅允许项目内 Java 文件启动（推荐，避免报错）
+				-- vim.notify("未找到 Java 项目根目录，jdtls 启动失败", vim.log.levels.WARN)
+				-- 方案B：孤立 Java 文件也启动（仅基础语法支持，可能有部分功能受限）
+				vim.notify("检测到孤立 Java 文件，启动基础 jdtls 功能", vim.log.levels.INFO)
+				project_root = vim.fn.expand("~/.java-workspace/isolated/") -- 给孤立文件单独分配工作目录
+				vim.fn.mkdir(project_root, "p")
+				return
+			end
 			local config = {
 				cmd = {
 					"java",
