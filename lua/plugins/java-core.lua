@@ -1,5 +1,4 @@
 return {
-	-- Java LSP 支持
 	{
 		"mfussenegger/nvim-jdtls",
 		ft = "java",
@@ -132,29 +131,11 @@ return {
 						return
 					end
 
-					require("config.java-code-keymaps").setup(bufnr)
+					require("config.java-code-keymaps").setup(client, bufnr)
 				end,
 
 				capabilities = require("cmp_nvim_lsp").default_capabilities(),
 			}
-
-			-- 安全启动函数
-			-- local function setup_jdtls()
-			-- 	-- 确保当前缓冲区有效
-			-- 	local bufnr = vim.api.nvim_get_current_buf()
-			-- 	if not vim.api.nvim_buf_is_valid(bufnr) or vim.api.nvim_buf_get_name(bufnr) == "" then
-			-- 		vim.defer_fn(setup_jdtls, 50)
-			-- 		return
-			-- 	end
-
-			-- 	-- 启动 jdtls
-			-- 	require("jdtls").start_or_attach(config)
-			-- end
-
-			-- -- 延迟启动
-			-- vim.defer_fn(setup_jdtls, 100)
-			-- 替换原有的 安全启动函数 和 延迟启动
-			-- 直接启动，依赖 jdtls 自身的缓冲区处理
 			require("jdtls").start_or_attach(config)
 		end,
 	},

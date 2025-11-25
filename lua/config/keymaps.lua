@@ -23,6 +23,8 @@ set("v", "P", '"_c<Esc>"+P', { desc = "Paste before from system clipboard (overw
 set("v", "y", '"+y', { desc = "Copy to system clipboard" })
 set("n", "yy", '"+yy', { desc = "Copy line to system clipboard" })
 
+set("n", "<leader>ve", "ggVG", opts)
+
 -- 取消 s 默认功能
 map("n", "s", "", opt)
 -- windows 分屏快捷键
@@ -83,25 +85,25 @@ map("n", "<leader>e", ":NvimTreeToggle<CR>", opt)
 local pluginKeys = {}
 -- 列表快捷键
 pluginKeys.nvimTreeList = {
-  -- 打开文件或文件夹
-  {
-    key = { "<CR>", "o", "<2-LeftMouse>" },
-    action = "edit",
-  },
-  -- 分屏打开文件
-  { key = "v", action = "vsplit" },
-  { key = "h", action = "split" },
-  -- 显示隐藏文件
-  { key = "i", action = "toggle_custom" }, -- 对应 filters 中的 custom (node_modules)
-  { key = ".", action = "toggle_dotfiles" }, -- Hide (dotfiles)
-  -- 文件操作
-  { key = "<F5>", action = "refresh" },
-  { key = "a", action = "create" },
-  { key = "d", action = "remove" },
-  { key = "r", action = "rename" },
-  { key = "x", action = "cut" },
-  { key = "c", action = "copy" },
-  { key = "p", action = "paste" },
-  { key = "s", action = "system_open" },
+	-- 打开文件或文件夹
+	{
+		key = { "<CR>", "o", "<2-LeftMouse>" },
+		action = "edit",
+	},
+	-- 分屏打开文件
+	{ key = "v", action = "vsplit" },
+	{ key = "h", action = "split" },
+	-- 显示隐藏文件
+	{ key = "i", action = "toggle_custom" }, -- 对应 filters 中的 custom (node_modules)
+	{ key = ".", action = "toggle_dotfiles" }, -- Hide (dotfiles)
+	-- 文件操作
+	{ key = "<F5>", action = "refresh" },
+	{ key = "a", action = "create" },
+	{ key = "d", action = "remove" },
+	{ key = "r", action = "rename" },
+	{ key = "x", action = "cut" },
+	{ key = "c", action = "copy" },
+	{ key = "p", action = "paste" },
+	{ key = "s", action = "system_open" },
 }
 return pluginKeys

@@ -28,7 +28,7 @@ return {
 					end,
 				},
 
-				-- 快捷键配置（和 blink.cmp 习惯对齐，可自定义）
+				-- 快捷键
 				mapping = cmp.mapping.preset.insert({
 					["<C-j>"] = cmp.mapping(function(fallback)
 						-- 如果有补全菜单，选中下一个
