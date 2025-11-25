@@ -30,6 +30,49 @@ M.setup = function(client, bufnr)
 			menu = "code_action",
 		})
 	end, { buffer = bufnr, desc = "code_action" })
+
+	local toggleterm = require("toggleterm.terminal").Terminal
+	local function run_java_file()
+		local filetype = vim.bo.filetype
+		if filetype ~= "java" then
+			vim.notify("当前不是 Java 文件！", vim.log.levels.ERROR)
+			return
+		end
+
+		local filepath = vim.fn.expand("%:p") -- 完整文件路径
+		local filename = vim.fn.expand("%:t") -- 文件名
+		local classname = vim.fn.expand("%:t:r") -- 类名
+		local workdir = vim.fn.expand("%:p:h") -- 工作目录
+
+		local compile_cmd = string.format("cd %s && javac -encoding UTF-8 %s", workdir, filename)
+
+		vim.fn.jobstart(compile_cmd, {
+			stdout_buffered = true,
+			stderr_buffered = true,
+			on_exit = function(_, exit_code, _)
+				if exit_code ~= 0 then
+					vim.notify("编译失败！", vim.log.levels.ERROR)
+					return
+				end
+
+				local run_cmd = string.format("cd %s && java %s", workdir, classname)
+				local term = toggleterm:new({ cmd = run_cmd, close_on_exit = false })
+				term:toggle()
+				-- 终端自动进入插入模式，方便直接操作
+				vim.cmd("startinsert")
+			end,
+		})
+	end
+
+	local function stop_java_processes()
+		vim.fn.jobstart("pkill -f java", {
+			on_exit = function()
+				vim.notify("已停止所有 Java 进程", vim.log.levels.INFO)
+			end,
+		})
+	end
+	vim.api.nvim_create_user_command("RunJava", run_java_file, {})
+	vim.api.nvim_create_user_command("StopJava", stop_java_processes, {})
 end
 
 return M
