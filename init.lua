@@ -14,7 +14,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("config/keymaps")
-require("config/code-keymaps")
 require("config/options")
 require("lazy").setup("plugins")
 

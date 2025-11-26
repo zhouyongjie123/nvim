@@ -28,17 +28,6 @@ return {
 					},
 				},
 			})
-			local map = vim.keymap.set
-			-- bufferline
-			-- 左右Tab切换
-			map("n", "H", ":BufferLineCyclePrev<CR>", opt)
-			map("n", "L", ":BufferLineCycleNext<CR>", opt)
-			-- 关闭
-			--"moll/vim-bbye"
-			map("n", "x", ":bdelete!<CR>", opt)
-			map("n", "<leader>bl", ":BufferLineCloseRight<CR>", opt)
-			map("n", "<leader>bh", ":BufferLineCloseLeft<CR>", opt)
-			map("n", "<leader>bc", ":BufferLinePickClose<CR>", opt)
 		end,
 	},
 }
