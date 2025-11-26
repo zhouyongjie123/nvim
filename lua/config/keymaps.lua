@@ -1,29 +1,28 @@
-local map = vim.api.nvim_set_keymap
 local del = vim.api.nvim_del_keymap
-local set = vim.keymap.set
+local map = vim.keymap.set
 -- 复用 opt 参数
 local opt = { noremap = true, silent = true }
 -- 删除操作（不复制到寄存器）
-set("n", "d", '"_d', { desc = "Delete without copying to register" })
-set("n", "dd", '"_dd', { desc = "Delete line without copying to register" })
-set("n", "D", '"_D', { desc = "Delete to EOL without copying to register" })
-set("v", "d", '"_d', { desc = "Delete visually selected without copying to register" })
-set("n", "d<leader>", '"_diw', { desc = "Delete without copying to register" })
+map("n", "d", '"_d', { desc = "Delete without copying to register" })
+map("n", "dd", '"_dd', { desc = "Delete line without copying to register" })
+map("n", "D", '"_D', { desc = "Delete to EOL without copying to register" })
+map("v", "d", '"_d', { desc = "Delete visually selected without copying to register" })
+map("n", "d<leader>", '"_diw', { desc = "Delete without copying to register" })
 
 -- 修改操作（不复制到寄存器）
-set("n", "c", '"_c', { desc = "Change without copying to register" })
-set("v", "c", '"_c', { desc = "Change visually selected without copying to register" })
-set("n", "cc", '"_cc', { desc = "Change line without copying to register" })
-set("n", "c<leader>", '"_ciw', { desc = "Change without copying to register" })
+map("n", "c", '"_c', { desc = "Change without copying to register" })
+map("v", "c", '"_c', { desc = "Change visually selected without copying to register" })
+map("n", "cc", '"_cc', { desc = "Change line without copying to register" })
+map("n", "c<leader>", '"_ciw', { desc = "Change without copying to register" })
 -- 粘贴操作（先清空目标内容，再从系统剪贴板粘贴）
-set("v", "p", '"_c<Esc>"+p', { desc = "Paste from system clipboard (overwrite)" })
-set("v", "P", '"_c<Esc>"+P', { desc = "Paste before from system clipboard (overwrite)" })
+map("v", "p", '"_c<Esc>"+p', { desc = "Paste from system clipboard (overwrite)" })
+map("v", "P", '"_c<Esc>"+P', { desc = "Paste before from system clipboard (overwrite)" })
 
 -- 复制操作（复制到系统剪贴板）
-set("v", "y", '"+y', { desc = "Copy to system clipboard" })
-set("n", "yy", '"+yy', { desc = "Copy line to system clipboard" })
+map("v", "y", '"+y', { desc = "Copy to system clipboard" })
+map("n", "yy", '"+yy', { desc = "Copy line to system clipboard" })
 
-set("n", "<leader>ve", "ggVG", opt)
+map("n", "<leader>ve", "ggVG", opt)
 
 -- 取消 s 默认功能
 map("n", "s", "", opt)
@@ -83,4 +82,4 @@ map("i", "jj", "<ESC>", opt)
 
 require("config.bufferline-keymaps").setup(map, opt)
 require("config.nvim-tree-keymaps").setup(map, opt)
-require("config/code-keymaps").setup(map, opt)
+require("config.code-keymaps").setup(map, opt)
