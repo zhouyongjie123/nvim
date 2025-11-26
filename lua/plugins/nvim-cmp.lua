@@ -17,8 +17,8 @@ return {
 			local luasnip = require("luasnip")
 			local icons = require("nvim-web-devicons")
 			luasnip.config.setup({
-				history = true, -- 记住上次展开的片段
-				updateevents = "TextChanged,TextChangedI", -- 文本变化时更新片段
+				history = true,
+				updateevents = "TextChanged,TextChangedI",
 			})
 
 			cmp.setup({
@@ -31,13 +31,10 @@ return {
 				-- 快捷键
 				mapping = cmp.mapping.preset.insert({
 					["<C-j>"] = cmp.mapping(function(fallback)
-						-- 如果有补全菜单，选中下一个
 						if cmp.visible() then
-							cmp.select_next_item()
-						-- 如果有可展开的片段，展开
+							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 						elseif luasnip.expand_or_jumpable() then
 							luasnip.expand_or_jump()
-						-- 否则触发默认 Tab 行为
 						else
 							fallback()
 						end
@@ -45,7 +42,7 @@ return {
 
 					["<C-k>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
-							cmp.select_prev_item() -- 选中上一个补全项
+							cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
 						elseif luasnip.jumpable(-1) then
 							luasnip.jump(-1) -- 回退片段
 						else
@@ -54,9 +51,22 @@ return {
 					end, { "i", "s" }),
 
 					["<CR>"] = cmp.mapping.confirm({
-						select = true, -- 自动选中第一个补全项（无需手动按 Tab）
-						behavior = cmp.ConfirmBehavior.Replace, -- 替换光标后的文本
+						select = true,
+						behavior = cmp.ConfirmBehavior.Replace,
 					}),
+
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.confirm({
+								select = true,
+								behavior = cmp.ConfirmBehavior.Replace,
+							})
+						elseif luasnip.expand_or_jumpable() then
+							luasnip.expand_or_jump()
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
 
 					["<C-e>"] = cmp.mapping.abort(), -- 取消补全（Ctrl+E）
 					["<C-u>"] = cmp.mapping.scroll_docs(-4), -- 向上滚动补全文档
@@ -65,17 +75,16 @@ return {
 
 				-- 补全源优先级（先 LSP → 片段 → 路径 → 缓冲区 → Lua API）
 				sources = cmp.config.sources({
-					{ name = "nvim_lsp" }, -- LSP 语法补全（最高优先级）
-					{ name = "luasnip" }, -- 代码片段补全
-					{ name = "path" }, -- 路径补全
-					{ name = "buffer" }, -- 缓冲区补全（当前文件）
-					{ name = "nvim_lua" }, -- Lua API 补全（配置文件用）
+					{ name = "nvim_lsp" },
+					{ name = "luasnip" },
+					{ name = "path" },
+					{ name = "buffer" },
+					{ name = "nvim_lua" },
 				}),
 
-				-- 补全菜单美化（可选，提升视觉体验）
 				window = {
 					completion = cmp.config.window.bordered({
-						border = "rounded", -- 圆角边框
+						border = "rounded",
 						winhighlight = "Normal:CmpPmenu,FloatBorder:CmpPmenuBorder,Search:None",
 					}),
 					documentation = cmp.config.window.bordered({ border = "rounded" }),
@@ -85,11 +94,9 @@ return {
 				formatting = {
 					fields = { "kind", "abbr", "menu" }, -- 显示顺序：类型图标 → 补全文本 → 来源
 					format = function(entry, item)
-						-- 为补全项添加图标（基于文件类型/补全类型）
 						if item.kind == "File" then
 							item.kind = icons.get_icon(item.abbr) or "󰈙"
 						else
-							-- 补全类型图标（如函数、变量、类等）
 							local kind_icons = {
 								Text = "",
 								Method = "󰆧",
@@ -147,9 +154,20 @@ return {
 
 			cmp.setup.cmdline(":", {
 				mapping = cmp.mapping.preset.cmdline({
-					["<Tab>"] = cmp.mapping.select_next_item(),
-					["<S-Tab>"] = cmp.mapping.select_prev_item(),
-					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					["<C-j>"] = cmp.mapping.select_next_item(),
+					["<C-k>"] = cmp.mapping.select_prev_item(),
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.confirm({
+								select = true,
+								behavior = cmp.ConfirmBehavior.Replace,
+							})
+						elseif luasnip.expand_or_jumpable() then
+							luasnip.expand_or_jump()
+						else
+							fallback()
+						end
+					end, { "c" }),
 				}),
 				sources = cmp.config.sources({
 					{ name = "path" },

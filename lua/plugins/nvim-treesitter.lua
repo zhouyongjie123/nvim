@@ -1,20 +1,19 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	build = ":TSUpdate", -- 安装/更新语法解析器
-	event = { "BufReadPost", "BufNewFile" }, -- 打开文件时加载（延迟加载，优化启动速度）
+	build = ":TSUpdate",
+	event = { "BufReadPost", "BufNewFile" }, -- 打开文件时加载
 	config = function()
 		require("nvim-treesitter.configs").setup({
 			-- 启用的功能
 			ensure_installed = {
-				-- 必装基础语言（根据你的使用场景增减）
 				"lua",
 				"vim",
-				"vimdoc", -- Neovim 配置相关
+				"vimdoc",
 				"python",
 				"javascript",
 				"typescript",
 				"html",
-				"css", -- 前端/后端
+				"css",
 				"bash",
 				"json",
 				"yaml",
@@ -22,11 +21,13 @@ return {
 				"markdown",
 				"markdown_inline", -- 文档
 			},
-			sync_install = false, -- 不同步安装（避免阻塞）
+			modules = {},
+			ignore_install = {},
+			sync_install = false, -- 不同步安装
 			auto_install = true, -- 打开未支持的文件时，自动安装对应的语法解析器
 			highlight = {
-				enable = true, -- 启用语法高亮（核心功能）
-				additional_vim_regex_highlighting = false, -- 禁用原生正则高亮（避免冲突）
+				enable = true, -- 启用语法高亮
+				additional_vim_regex_highlighting = false, -- 禁用原生正则高亮
 			},
 			indent = {
 				enable = true, -- 启用智能缩进（部分语言不支持，可后续禁用）
