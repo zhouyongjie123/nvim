@@ -80,3 +80,29 @@ vim.o.showtabline = 2
 -- 使用增强状态栏插件后不再需要 vim 的模式提示
 vim.o.showmode = false
 vim.opt.clipboard = "unnamed" -- 或 "unnamedplus"
+
+-- 全局诊断配置（推荐配置）
+vim.diagnostic.config({
+	underline = true,
+	update_in_insert = false,
+	virtual_text = {
+		spacing = 4, -- 虚拟文本与代码的间距
+		source = "if_many", -- 仅当多个诊断来源时显示来源
+		prefix = "●", -- 诊断前缀（可用图标替代）
+	},
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = " ",
+			[vim.diagnostic.severity.WARN] = " ",
+			[vim.diagnostic.severity.HINT] = " ",
+			[vim.diagnostic.severity.INFO] = " ",
+		},
+	},
+	severity_sort = true,
+	float = {
+		border = "rounded", -- 浮窗圆角边框
+		source = "always", -- 始终显示诊断来源（如 eslint、lua_ls）
+		header = "", -- 隐藏浮窗头部
+		prefix = "", -- 隐藏浮窗前缀
+	},
+})

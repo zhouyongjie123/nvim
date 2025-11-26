@@ -19,14 +19,19 @@ return {
 			extensions = {
 				["ui-select"] = {
 					require("telescope.themes").get_dropdown({
-						-- 下拉菜单样式（紧凑、无预览，适合 code_action 短列表）
 						layout_config = {
-							width = 0.8, -- 浮窗宽度占比
-							height = 0.4, -- 浮窗高度占比
+							width = 0.8,
+							height = 0.4,
 						},
-						previewer = false, -- 关闭预览（code_action 无需预览）
-						prompt_title = false, -- 隐藏标题栏，更简洁
+						previewer = false,
+						prompt_title = false,
 					}),
+					input = {
+						theme = "dropdown", -- dropdown/ivy/cursor
+						-- prompt_prefix = "请输入",
+						enable_history = true,
+						history_path = vim.fn.stdpath("state") .. "/telescope-ui-select-history.txt",
+					},
 				},
 			},
 			pickers = {
@@ -48,14 +53,12 @@ return {
 
 		local telescope = require("telescope")
 		telescope.setup(opts)
-
+		telescope.load_extension("ui-select")
 		local set = vim.keymap.set
 		local builtin = require("telescope.builtin")
 		set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
 		set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 		set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 		set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-
-		telescope.load_extension("ui-select")
 	end,
 }

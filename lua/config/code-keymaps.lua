@@ -11,5 +11,19 @@ M.setup = function(map, opt)
 	-- keymap("n", "<leader>D", vim.lsp.buf.type_definition, opts)
 	map("n", "<leader>rn", buf.rename, opt)
 	map("n", "gr", buf.references, opt)
+	map({ "n", "v" }, "<leader>ca", function()
+		buf.code_action({
+			context = {
+				only = { "quickfix", "refactor", "source" },
+			},
+		})
+	end, { noremap = true, silent = true, desc = "code_action" })
+
+	map("n", "ge", function()
+		vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+	end, { noremap = true, desc = "goto next error" })
+	map("n", "gE", function()
+		vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+	end, { noremap = true, desc = "goto previous error" })
 end
 return M
