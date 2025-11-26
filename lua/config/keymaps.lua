@@ -1,4 +1,3 @@
-local del = vim.api.nvim_del_keymap
 local map = vim.keymap.set
 -- 复用 opt 参数
 local opt = { noremap = true, silent = true }
