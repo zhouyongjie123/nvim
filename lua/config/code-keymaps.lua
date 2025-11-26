@@ -1,20 +1,24 @@
 local buf = vim.lsp.buf
 local M = {}
 M.setup = function(map, opt)
-	-- 跳转到声明
-	-- keymap("n", "gD", vim.lsp.buf.declaration, opts)
-	map("n", "gd", buf.definition, opt)
+	map("n", "gD", function()
+		require("telescope.builtin").lsp_type_definitions({ reuse_win = true }, opt)
+	end)
+	map("n", "gd", function()
+		require("telescope.builtin").lsp_definitions({ reuse_win = true }, opt)
+	end)
 	map("n", "<leader>sh", buf.hover, opt)
-	map("n", "gi", buf.implementation, opt)
+	map("n", "gi", function()
+		require("telescope.builtin").lsp_implementations({ reuse_win = true })
+	end, opt)
 	map("n", "<C-k>", buf.signature_help, opt)
-	-- 跳转到类型定义（如类、接口）
-	-- keymap("n", "<leader>D", vim.lsp.buf.type_definition, opts)
 	map("n", "<leader>rn", buf.rename, opt)
-	map("n", "gr", buf.references, opt)
+	map("n", "gr", "<cmd>Telescope lsp_references<cr>", opt)
 	map({ "n", "v" }, "<leader>ca", function()
 		buf.code_action({
 			context = {
 				only = { "quickfix", "refactor", "source" },
+				diagnostics = {},
 			},
 		})
 	end, { noremap = true, silent = true, desc = "code_action" })
