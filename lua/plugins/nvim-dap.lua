@@ -19,7 +19,7 @@ return {
 				return dap_term.bufnr, dap_term.window
 			end
 			dap_term = Terminal:new({
-				direction = "float",
+				direction = "horizontal",
 				size = config.terminal_size or 15,
 				close_on_exit = false,
 				hidden = true,

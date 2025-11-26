@@ -12,6 +12,12 @@ return {
 			"saadparwaiz1/cmp_luasnip", -- 联动 nvim-cmp 和 LuaSnip
 			"nvim-tree/nvim-web-devicons",
 		},
+		opts = function(_, opts)
+			opts.sorting = opts.sorting or {}
+			opts.sorting.comparators = opts.sorting.comparators or {}
+			table.insert(opts.sorting.comparators, 1, require("clangd_extensions.cmp_scores"))
+			table.insert(opts.sources, { name = "git" })
+		end,
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
