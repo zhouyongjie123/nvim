@@ -1,7 +1,7 @@
 return {
 	"mfussenegger/nvim-dap",
 	optional = true,
-	opts = function()
+	config = function()
 		local dap = require("dap")
 		dap.configurations.java = {
 			{
