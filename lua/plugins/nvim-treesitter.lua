@@ -20,6 +20,7 @@ return {
 				"toml", -- 脚本/配置
 				"markdown",
 				"markdown_inline", -- 文档
+				"java",
 			},
 			modules = {},
 			ignore_install = {},

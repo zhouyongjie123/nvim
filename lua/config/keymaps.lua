@@ -52,15 +52,6 @@ map("n", "<C-Up>", ":resize -2<CR>", opt)
 -- 等比例
 map("n", "s=", "<C-w>=", opt)
 
--- Terminal相关
-map("n", "<leader>t", ":sp | terminal<CR>", opt)
-map("n", "<leader>vt", ":vsp | terminal<CR>", opt)
-map("t", "<Esc>", "<C-\\><C-n>", opt)
-map("t", "<A-h>", [[ <C-\><C-N><C-w>h ]], opt)
-map("t", "<A-j>", [[ <C-\><C-N><C-w>j ]], opt)
-map("t", "<A-k>", [[ <C-\><C-N><C-w>k ]], opt)
-map("t", "<A-l>", [[ <C-\><C-N><C-w>l ]], opt)
-
 -- visual模式下缩进代码
 map("v", "<", "<gv", opt)
 map("v", ">", ">gv", opt)

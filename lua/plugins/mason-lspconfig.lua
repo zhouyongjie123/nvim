@@ -11,7 +11,7 @@ return {
 		ensure_installed = { "lua_ls", "rust_analyzer", "jdtls", "clangd" },
 	},
 	dependencies = {
-		{ "mason-org/mason.nvim", opts = {} },
+		{ "mason-org/mason.nvim", opts = { ensure_installed = { "java-debug-adapter", "java-test" } } },
 		"neovim/nvim-lspconfig",
 	},
 }
