@@ -8,9 +8,11 @@ M.setup = function(map, opt)
 		require("telescope.builtin").lsp_definitions({ reuse_win = true }, opt)
 	end)
 	map("n", "<leader>sh", buf.hover, opt)
+
 	map("n", "gi", function()
 		require("telescope.builtin").lsp_implementations({ reuse_win = true })
 	end, opt)
+
 	map("n", "<C-k>", buf.signature_help, opt)
 	map("n", "<leader>rn", buf.rename, opt)
 	map("n", "gr", "<cmd>Telescope lsp_references<cr>", opt)
