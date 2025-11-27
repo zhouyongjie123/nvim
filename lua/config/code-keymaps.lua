@@ -14,7 +14,10 @@ M.setup = function(map, opt)
 	end, opt)
 
 	map("n", "<C-k>", buf.signature_help, opt)
-	map("n", "<leader>rn", buf.rename, opt)
+	-- map("n", "<leader>rn", buf.rename, opt)
+	map("n", "<leader>rn", function()
+		return ":IncRename " .. vim.fn.expand("<cword>")
+	end, { expr = true })
 	map("n", "gr", "<cmd>Telescope lsp_references<cr>", opt)
 	map({ "n", "v" }, "<leader>ca", function()
 		buf.code_action({

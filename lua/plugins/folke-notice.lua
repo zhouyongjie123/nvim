@@ -5,6 +5,9 @@ return {
 		"rcarriga/nvim-notify",
 	},
 	opts = {
+		presets = {
+			inc_rename = true,
+		},
 		notify = {
 			enabled = true,
 			view = "notify",
