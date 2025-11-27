@@ -14,12 +14,12 @@ map("v", "c", '"_c', { desc = "Change visually selected without copying to regis
 map("n", "cc", '"_cc', { desc = "Change line without copying to register" })
 map("n", "c<leader>", '"_ciw', { desc = "Change without copying to register" })
 -- 粘贴操作（先清空目标内容，再从系统剪贴板粘贴）
-map("v", "p", '"_c<Esc>"+p', { desc = "Paste from system clipboard (overwrite)" })
-map("v", "P", '"_c<Esc>"+P', { desc = "Paste before from system clipboard (overwrite)" })
+-- map("v", "p", '"_c<Esc>"+p', { desc = "Paste from system clipboard (overwrite)" })
+-- map("v", "P", '"_c<Esc>"+P', { desc = "Paste before from system clipboard (overwrite)" })
 
 -- 复制操作（复制到系统剪贴板）
-map("v", "y", '"+y', { desc = "Copy to system clipboard" })
-map("n", "yy", '"+yy', { desc = "Copy line to system clipboard" })
+-- map("v", "y", '"+y', { desc = "Copy to system clipboard" })
+-- map("n", "yy", '"+yy', { desc = "Copy line to system clipboard" })
 
 map("n", "<leader>ve", "ggVG", opt)
 
@@ -73,3 +73,4 @@ map("i", "jj", "<ESC>", opt)
 require("config.bufferline-keymaps").setup(map, opt)
 require("config.nvim-tree-keymaps").setup(map, opt)
 require("config.code-keymaps").setup(map, opt)
+require("config.yanky-keymaps").setup(map, opt)

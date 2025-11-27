@@ -5,6 +5,7 @@ return {
 		"nvim-lua/plenary.nvim",
 		"nvim-tree/nvim-web-devicons",
 		"nvim-telescope/telescope-ui-select.nvim",
+		"gbprod/yanky.nvim", -- 依赖yanky.nvim提供扩展
 	},
 	opts = {
 		defaults = {
@@ -13,8 +14,12 @@ return {
 			},
 			mappings = {
 				i = {
-					["<C-j>"] = require("telescope.actions").move_selection_next,
 					["<C-k>"] = require("telescope.actions").move_selection_previous,
+					["<C-j>"] = require("telescope.actions").move_selection_next,
+				},
+				n = {
+					["<C-k>"] = require("telescope.actions").move_selection_previous,
+					["<C-j>"] = require("telescope.actions").move_selection_next,
 				},
 			},
 		},
@@ -35,24 +40,36 @@ return {
 					history_path = vim.fn.stdpath("state") .. "/telescope-ui-select-history.txt",
 				},
 			},
-		},
-		pickers = {
-			lsp_code_actions = {
-				theme = "cursor",
-				layout_config = {
-					width = 0.8,
-					height = 0.4,
+			["yank_history"] = {
+				mappings = {
+					i = {
+						["<C-j>"] = require("telescope.actions").move_selection_next,
+						["<C-k>"] = require("telescope.actions").move_selection_previous,
+					},
+					n = {
+						["<C-k>"] = require("telescope.actions").move_selection_previous,
+						["<C-j>"] = require("telescope.actions").move_selection_next,
+					},
 				},
 			},
-			lsp_implementations = {
-				path_display = { "tail" },
+		},
+	},
+	pickers = {
+		lsp_code_actions = {
+			theme = "cursor",
+			layout_config = {
+				width = 0.8,
+				height = 0.4,
 			},
-			find_files = {
-				hidden = true,
-			},
-			live_grep = {
-				additional_args = { "--hidden" },
-			},
+		},
+		lsp_implementations = {
+			path_display = { "tail" },
+		},
+		find_files = {
+			hidden = true,
+		},
+		live_grep = {
+			additional_args = { "--hidden" },
 		},
 	},
 
@@ -90,6 +107,7 @@ return {
 		local telescope = require("telescope")
 		telescope.setup(opts)
 		telescope.load_extension("ui-select")
+		telescope.load_extension("yank_history")
 		local set = vim.keymap.set
 		local builtin = require("telescope.builtin")
 		set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
