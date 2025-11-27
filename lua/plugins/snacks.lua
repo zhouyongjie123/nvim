@@ -1,11 +1,10 @@
 return {
 	"folke/snacks.nvim",
-	event = "VeryLazy",
 	opts = {
 		indent = { enable = false },
-        scope = {
-            enable = false
-        },
+		scope = {
+			enable = false,
+		},
 	},
 	-- 可选：启用特定模块
 	dependencies = {
