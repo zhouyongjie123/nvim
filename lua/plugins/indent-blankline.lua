@@ -2,23 +2,6 @@ return {
 	"lukas-reineke/indent-blankline.nvim",
 	event = "VeryLazy",
 	main = "ibl",
-	-- opts = {
-	-- 	-- 基础缩进线配置
-	-- 	indent = {
-	-- 		char = "│", -- 普通缩进线的字符
-	-- 	},
-	-- 	-- 上下文高亮配置（关键）
-	-- 	scope = {
-	-- 		enabled = false, -- 启用上下文标记
-	-- 		show_start = false, -- 显示上下文起始线（就是你看到的大括号后的竖线）
-	-- 		show_end = false, -- 可选：是否显示上下文结束线
-	-- 		inject_scope = true,
-	-- 		-- 可选：自定义上下文线的字符和高亮
-	-- 		char = "│",
-	-- 		highlight = "IndentBlanklineContextChar",
-	-- 		priority = 2,
-	-- 	},
-	-- },
 
 	opts = function()
 		Snacks.toggle({

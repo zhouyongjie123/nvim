@@ -6,6 +6,7 @@ return {
 		"nvim-tree/nvim-web-devicons",
 		"nvim-telescope/telescope-ui-select.nvim",
 		"gbprod/yanky.nvim", -- 依赖yanky.nvim提供扩展
+		"folke/trouble.nvim",
 	},
 	opts = {
 		defaults = {
@@ -16,40 +17,42 @@ return {
 				i = {
 					["<C-k>"] = require("telescope.actions").move_selection_previous,
 					["<C-j>"] = require("telescope.actions").move_selection_next,
+					-- ["<c-t>"] = require("trouble.sources.telescope").open,
 				},
 				n = {
 					["<C-k>"] = require("telescope.actions").move_selection_previous,
 					["<C-j>"] = require("telescope.actions").move_selection_next,
+					-- ["<C-t>"] = trouble_telescope.open,
 				},
 			},
 		},
-		extensions = {
-			["ui-select"] = {
-				require("telescope.themes").get_dropdown({
-					layout_config = {
-						width = 0.8,
-						height = 0.4,
-					},
-					previewer = false,
-					prompt_title = false,
-				}),
-				input = {
-					theme = "dropdown", -- dropdown/ivy/cursor
-					-- prompt_prefix = "请输入",
-					enable_history = true,
-					history_path = vim.fn.stdpath("state") .. "/telescope-ui-select-history.txt",
+	},
+	extensions = {
+		["ui-select"] = {
+			require("telescope.themes").get_dropdown({
+				layout_config = {
+					width = 0.8,
+					height = 0.4,
 				},
+				previewer = false,
+				prompt_title = false,
+			}),
+			input = {
+				theme = "dropdown", -- dropdown/ivy/cursor
+				-- prompt_prefix = "请输入",
+				enable_history = true,
+				history_path = vim.fn.stdpath("state") .. "/telescope-ui-select-history.txt",
 			},
-			["yank_history"] = {
-				mappings = {
-					i = {
-						["<C-j>"] = require("telescope.actions").move_selection_next,
-						["<C-k>"] = require("telescope.actions").move_selection_previous,
-					},
-					n = {
-						["<C-k>"] = require("telescope.actions").move_selection_previous,
-						["<C-j>"] = require("telescope.actions").move_selection_next,
-					},
+		},
+		["yank_history"] = {
+			mappings = {
+				i = {
+					["<C-j>"] = require("telescope.actions").move_selection_next,
+					["<C-k>"] = require("telescope.actions").move_selection_previous,
+				},
+				n = {
+					["<C-k>"] = require("telescope.actions").move_selection_previous,
+					["<C-j>"] = require("telescope.actions").move_selection_next,
 				},
 			},
 		},
@@ -74,12 +77,15 @@ return {
 	},
 
 	config = function(_, opts)
+		local telescope = require("telescope")
+		local builtin = require("telescope.builtin")
+		-- local actions = require("telescope.actions")
+
 		local function has_flash()
 			local plugin_path = vim.fn.stdpath("data") .. "/lazy/flash.nvim" -- Lazy.nvim默认路径
 			return vim.fn.isdirectory(plugin_path) == 1
 		end
 
-		-- 替换原有的 LazyVim.has("flash.nvim")
 		if not has_flash() then
 			return
 		end
@@ -104,12 +110,10 @@ return {
 		opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
 			mappings = { n = { s = flash }, i = { ["<c-s>"] = flash } },
 		})
-		local telescope = require("telescope")
 		telescope.setup(opts)
 		telescope.load_extension("ui-select")
 		telescope.load_extension("yank_history")
 		local set = vim.keymap.set
-		local builtin = require("telescope.builtin")
 		set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
 		set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 		set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
