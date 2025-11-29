@@ -27,6 +27,14 @@ M.setup = function(map, opt)
 			},
 		})
 	end, { noremap = true, silent = true, desc = "code_action" })
+	map({ "n", "i" }, "<M-CR>", function()
+		buf.code_action({
+			context = {
+				only = { "quickfix" },
+				diagnostics = {},
+			},
+		})
+	end)
 
 	map("n", "ge", function()
 		vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
