@@ -52,7 +52,11 @@ return {
 
 			-- DAP 配置
 			dap = { hotcodereplace = "auto", config_overrides = {} },
-			dap_main = {}, -- 启用主类扫描
+			-- dap_main = {
+			-- 	verbose = true,
+			-- 	on_ready = function() end,
+			-- },
+			dap_main = {},
 			test = true, -- 启用测试功能
 			settings = {
 				java = {
@@ -132,14 +136,13 @@ return {
 						opts.on_attach(client, bufnr)
 					end
 
-					-- 手动设置快捷键（替代 which-key）
 					local map = function(mode, lhs, rhs, desc)
 						vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc, silent = true })
 					end
 
 					-- 调试/测试快捷键（如果启用）
 					if
-						opts.dap
+						opts.dap ~= nil
 						and pcall(require, "dap")
 						and mason_registry
 						and mason_registry.is_installed("java-debug-adapter")

@@ -3,45 +3,69 @@ return {
 	recommended = true,
 	optional = true,
 	desc = "Debugging support. Requires language specific adapters to be configured. (see lang extras)",
-	config = function()
+	opts = function()
 		local dap = require("dap")
 		dap.configurations.java = {
-			{
-				type = "java",
-				request = "attach",
-				name = "Debug (Attach) - Remote",
-				hostName = "127.0.0.1",
-				port = 5005,
-			},
+			-- {
+			-- 	type = "java",
+			-- 	request = "attach",
+			-- 	name = "Debug (Attach) - Remote",
+			-- 	hostName = "127.0.0.1",
+			-- 	port = 5005,
+			-- },
 		}
-		dap.adapters.java = {
-			type = "executable",
-			command = "java-debug-adapter",
-		}
-		local Terminal = require("toggleterm.terminal").Terminal
-		local dap_term = nil
-		dap.defaults.fallback.terminal_win_cmd = function(config)
-			if dap_term and dap_term:is_open() then
-				return dap_term.bufnr, dap_term.window
-			end
-			dap_term = Terminal:new({
-				direction = "horizontal",
-				size = config.terminal_size or 15,
-				close_on_exit = false,
-				hidden = true,
-				on_open = function(term)
-					vim.api.nvim_set_option_value("modified", false, { buf = term.bufnr })
-					vim.api.nvim_set_option_value("buftype", "terminal", { buf = term.bufnr })
-					vim.api.nvim_set_option_value("modifiable", false, { buf = term.bufnr })
-				end,
-				on_close = function()
-					dap_term = nil
-				end,
-			})
+		-- 不要添加下面这个配置,会报错
+		-- dap.adapters.java = {
+		-- 	type = "executable",
+		-- 	command = "java",
+		-- 	args = {
+		-- 		"-jar",
+		-- 		vim.fn.glob(
+		-- 			"~/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"
+		-- 		),
+		-- 	},
+		-- }
+	end,
+	config = function()
+		-- local Terminal = require("toggleterm.terminal").Terminal
+		-- local dap_term = nil
+		-- local dap = require("dap")
+		-- dap.defaults.fallback.terminal_win_cmd = function(config)
+		-- 	-- if dap_term and dap_term:is_open() then
+		-- 	-- 	return dap_term.bufnr, dap_term.window
+		-- 	-- end
+		-- 	-- 检查现有终端是否有效
+		-- 	if dap_term and dap_term:is_open() then
+		-- 		if vim.api.nvim_win_is_valid(dap_term.window) then
+		-- 			return dap_term.bufnr, dap_term.window
+		-- 		else
+		-- 			dap_term.window = nil -- 重置无效窗口
+		-- 		end
+		-- 	end
+		-- 	dap_term = Terminal:new({
+		-- 		direction = "horizontal",
+		-- 		-- size = config.terminal_size or 15,
+		-- 		size = 15,
+		-- 		close_on_exit = false,
+		-- 		hidden = false,
+		-- 		on_open = function(term)
+		-- 			vim.api.nvim_set_option_value("modified", false, { buf = term.bufnr })
+		-- 		end,
+		-- 	})
+		--
+		-- 	dap_term:toggle()
+		-- 	return dap_term.bufnr, dap_term.window
+		-- end
 
-			dap_term:open()
-			return dap_term.bufnr, dap_term.window
-		end
+		require("mason-nvim-dap").setup({
+			automatic_installation = true,
+			handlers = {},
+			ensure_installed = {
+				"java-debug-adapter", -- Java 调试适配器
+				"java-test", -- Java 测试适配器（可选）
+			},
+		})
+		vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
 
 		local icons = {
 			dap = {
@@ -52,16 +76,6 @@ return {
 				LogPoint = ".>",
 			},
 		}
-
-		-- 配置 mason-nvim-dap
-		if package.loaded["mason-nvim-dap"] then
-			require("mason-nvim-dap").setup()
-		end
-
-		-- 设置断点行高亮
-		vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
-
-		-- 配置调试图标
 		for name, sign in pairs(icons.dap) do
 			sign = type(sign) == "table" and sign or { sign }
 			vim.fn.sign_define(
@@ -71,13 +85,6 @@ return {
 		end
 	end,
 	keys = {
-		-- {
-		-- 	"<leader>dB",
-		-- 	function()
-		-- 		require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
-		-- 	end,
-		-- 	desc = "Breakpoint Condition",
-		-- },
 		{
 			"<leader>dp",
 			function()
@@ -92,13 +99,13 @@ return {
 			end,
 			desc = "Run/Continue",
 		},
-		{
-			"<leader>da",
-			function()
-				require("dap").continue({ before = get_args })
-			end,
-			desc = "Run with Args",
-		},
+		-- {
+		-- 	"<leader>da",
+		-- 	function()
+		-- 		require("dap").continue({ before = get_args })
+		-- 	end,
+		-- 	desc = "Run with Args",
+		-- },
 		{
 			"<leader>dC",
 			function()
@@ -202,5 +209,6 @@ return {
 			"mason-org/mason.nvim",
 			opts = { ensure_installed = { "java-debug-adapter", "java-test" } },
 		},
+		"jay-babu/mason-nvim-dap.nvim", -- 确保有这个依赖
 	},
 }
