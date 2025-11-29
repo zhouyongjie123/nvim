@@ -6,13 +6,13 @@ return {
 	opts = function()
 		local dap = require("dap")
 		dap.configurations.java = {
-			-- {
-			-- 	type = "java",
-			-- 	request = "attach",
-			-- 	name = "Debug (Attach) - Remote",
-			-- 	hostName = "127.0.0.1",
-			-- 	port = 5005,
-			-- },
+			{
+				type = "java",
+				request = "attach",
+				name = "Debug (Attach) - Remote",
+				hostName = "127.0.0.1",
+				port = 5005,
+			},
 		}
 		-- 不要添加下面这个配置,会报错
 		-- dap.adapters.java = {
@@ -27,36 +27,6 @@ return {
 		-- }
 	end,
 	config = function()
-		-- local Terminal = require("toggleterm.terminal").Terminal
-		-- local dap_term = nil
-		-- local dap = require("dap")
-		-- dap.defaults.fallback.terminal_win_cmd = function(config)
-		-- 	-- if dap_term and dap_term:is_open() then
-		-- 	-- 	return dap_term.bufnr, dap_term.window
-		-- 	-- end
-		-- 	-- 检查现有终端是否有效
-		-- 	if dap_term and dap_term:is_open() then
-		-- 		if vim.api.nvim_win_is_valid(dap_term.window) then
-		-- 			return dap_term.bufnr, dap_term.window
-		-- 		else
-		-- 			dap_term.window = nil -- 重置无效窗口
-		-- 		end
-		-- 	end
-		-- 	dap_term = Terminal:new({
-		-- 		direction = "horizontal",
-		-- 		-- size = config.terminal_size or 15,
-		-- 		size = 15,
-		-- 		close_on_exit = false,
-		-- 		hidden = false,
-		-- 		on_open = function(term)
-		-- 			vim.api.nvim_set_option_value("modified", false, { buf = term.bufnr })
-		-- 		end,
-		-- 	})
-		--
-		-- 	dap_term:toggle()
-		-- 	return dap_term.bufnr, dap_term.window
-		-- end
-
 		require("mason-nvim-dap").setup({
 			automatic_installation = true,
 			handlers = {},
@@ -92,20 +62,6 @@ return {
 			end,
 			desc = "Toggle Breakpoint",
 		},
-		{
-			"<leader>dc",
-			function()
-				require("dap").continue()
-			end,
-			desc = "Run/Continue",
-		},
-		-- {
-		-- 	"<leader>da",
-		-- 	function()
-		-- 		require("dap").continue({ before = get_args })
-		-- 	end,
-		-- 	desc = "Run with Args",
-		-- },
 		{
 			"<leader>dC",
 			function()
@@ -156,7 +112,7 @@ return {
 			desc = "Step Out",
 		},
 		{
-			"<leader>dO",
+			"<M-8>",
 			function()
 				require("dap").step_over()
 			end,

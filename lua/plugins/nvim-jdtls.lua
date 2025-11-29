@@ -171,9 +171,6 @@ return {
 							map("n", "<leader>tT", require("jdtls.dap").pick_test, "Pick Test")
 						end
 					end
-					vim.api.nvim_create_user_command("RunDap", function()
-						require("dap").continue()
-					end, {})
 				end,
 			}
 

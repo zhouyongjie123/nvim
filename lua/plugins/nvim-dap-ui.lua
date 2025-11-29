@@ -38,7 +38,6 @@ return {
 		config = function(_, opts)
 			local dap = require("dap")
 			local dapui = require("dapui")
-			dapui.setup(opts)
 			dap.listeners.after.event_initialized["dapui_config"] = function()
 				dapui.open({})
 			end
@@ -48,6 +47,33 @@ return {
 			dap.listeners.before.event_exited["dapui_config"] = function()
 				dapui.close({})
 			end
+			vim.api.nvim_create_user_command("RunDap", function()
+				dapui.setup(opts)
+				dapui.close()
+				require("dap").continue()
+			end, {})
+			local bootUiConfig = {
+				expand_lines = true, -- 自动展开变量
+				floating = {
+					border = "rounded", -- 浮动窗口边框（rounded/single/double/shadow）
+					mappings = { close = { "q", "<Esc>" } },
+				},
+				layouts = {
+					{
+						elements = {
+							{ id = "console", size = 0.5 }, -- 调试控制台
+						},
+						size = 20, -- 底部面板高度（行数）
+						position = "bottom",
+					},
+				},
+				windows = { indent = 1 }, -- 窗口缩进
+			}
+			vim.api.nvim_create_user_command("RunBoot", function()
+				dapui.setup(bootUiConfig)
+				dapui.close()
+				require("dap").continue()
+			end, {})
 		end,
 	},
 	{
