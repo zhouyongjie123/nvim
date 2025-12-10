@@ -62,7 +62,7 @@ map("n", "J", "6j", opt)
 map("n", "K", "6k", opt)
 
 -- 在visual 模式里粘贴不要复制
-map("v", "p", '"_dP', opt)
+-- map("v", "p", '"_dP', opt)
 
 -- insert 模式下，跳到行首行尾
 map("i", "<C-h>", "<ESC>i", opt)
