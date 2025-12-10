@@ -23,6 +23,7 @@ require("lazy").setup({
 		{ import = "plugins.lang.lua" },
 		{ import = "plugins.ui" },
 		{ import = "plugins.lsp-common" },
+		{ import = "plugins.editor" },
 	},
 	install = { colorscheme = { "habamax" } },
 	checker = { enabled = false },

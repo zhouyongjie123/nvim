@@ -1,11 +1,6 @@
 return {
 	"mason-org/mason.nvim",
 	optional = true,
-	opts = {
-		ensure_installed = {
-			"lua-language-server",
-			"stylua",
-		},
-	},
 	opts_extend = { "ensure_installed" },
+	opts = { ensure_installed = { "ruff", "pyright" } },
 }
