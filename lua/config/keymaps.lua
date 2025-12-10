@@ -32,12 +32,11 @@ map("n", "sh", ":sp<CR>", opt)
 map("n", "x", "<C-w>c", opt)
 -- 关闭其他
 map("n", "so", "<C-w>o", opt)
--- Alt + hjkl  窗口之间跳转
-map("n", "<A-h>", "<C-w>h", opt)
-map("n", "<A-j>", "<C-w>j", opt)
-map("n", "<A-k>", "<C-w>k", opt)
-map("n", "<A-l>", "<C-w>l", opt)
-
+-- 窗口之间跳转
+map("n", "<M-h>", "<C-w>h", opt)
+map("n", "<M-j>", "<C-w>j", opt)
+map("n", "<M-k>", "<C-w>k", opt)
+map("n", "<M-l>", "<C-w>l", opt)
 -- 左右比例控制
 map("n", "<C-Left>", ":vertical resize -2<CR>", opt)
 map("n", "<C-Right>", ":vertical resize +2<CR>", opt)

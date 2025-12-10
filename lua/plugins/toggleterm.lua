@@ -19,5 +19,12 @@ return {
 			close_on_exit = false,
 			shell = vim.o.shell, -- 使用系统默认 shell
 		})
+		local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+
+		function _lazygit_toggle()
+			lazygit:toggle()
+		end
+
+		vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
 	end,
 }
