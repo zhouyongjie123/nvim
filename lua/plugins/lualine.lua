@@ -12,26 +12,26 @@ return {
 			lualine_a = { "mode" },
 			lualine_b = { "branch", "diff", "diagnostics" },
 			lualine_c = { "filename" },
-			lualine_x = {},
+			lualine_x = { "lsp_status" },
 			lualine_y = { "encoding", "fileformat", "filetype", "progress" },
 			lualine_z = { "locatgion" },
 		},
-		winbar = {
-			lualine_a = {
-				"filename",
-			},
-			lualine_b = {
-				{
-					function()
-						return ""
-					end,
-					color = "Comment",
-				},
-			},
-			lualine_x = {
-				"lsp_status",
-			},
-		},
+		-- winbar = {
+		-- 	lualine_a = {
+		-- 		"filename",
+		-- 	},
+		-- 	lualine_b = {
+		-- 		{
+		-- 			function()
+		-- 				return ""
+		-- 			end,
+		-- 			color = "Comment",
+		-- 		},
+		-- 	},
+		-- 	lualine_x = {
+		-- 		"lsp_status",
+		-- 	},
+		-- },
 		inactive_winbar = {
 			lualine_b = {
 				function()

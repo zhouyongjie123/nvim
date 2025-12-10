@@ -114,14 +114,9 @@ return {
 		telescope.load_extension("ui-select")
 		telescope.load_extension("yank_history")
 		local set = vim.keymap.set
-		set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-		set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
-		set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
-		set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-
-		-- 映射快捷键
-		vim.keymap.set("n", "gi", function()
-			require("telescope.builtin").lsp_implementations()
-		end)
+		-- set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
+		-- set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
+		-- set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
+		-- set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
 	end,
 }
