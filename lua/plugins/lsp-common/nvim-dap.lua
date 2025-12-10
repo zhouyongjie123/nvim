@@ -14,17 +14,6 @@ return {
 				port = 5005,
 			},
 		}
-		-- 不要添加下面这个配置,会报错
-		-- dap.adapters.java = {
-		-- 	type = "executable",
-		-- 	command = "java",
-		-- 	args = {
-		-- 		"-jar",
-		-- 		vim.fn.glob(
-		-- 			"~/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar"
-		-- 		),
-		-- 	},
-		-- }
 	end,
 	config = function()
 		require("mason-nvim-dap").setup({

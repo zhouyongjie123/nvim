@@ -18,7 +18,6 @@ require("config/options")
 
 require("lazy").setup({
 	spec = {
-		-- import your plugins
 		{ import = "plugins" },
 		{ import = "plugins.lang.lua" },
 		{ import = "plugins.lang.python" },
