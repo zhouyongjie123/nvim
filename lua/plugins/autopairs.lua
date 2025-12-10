@@ -14,7 +14,7 @@ return {
 		})
 
 		-- 与 nvim-cmp 联动（补全后自动闭合括号）
-		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-		require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+		-- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+		-- require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
 	end,
 }

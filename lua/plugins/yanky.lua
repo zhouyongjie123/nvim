@@ -26,11 +26,11 @@ return {
 				if has_telescope then
 					require("telescope").extensions.yank_history.yank_history()
 					-- -- 可选：若安装了snacks.nvim（非必须）
-					-- -- elseif pcall(require, "snacks") then
-					-- -- 	require("snacks").picker.yanky()
-					-- -- 兜底使用默认的Yanky历史菜单
-					-- else
-					-- 	vim.cmd([[YankyRingHistory]])
+				elseif pcall(require, "snacks") then
+					require("snacks").picker.yanky()
+					-- 兜底使用默认的Yanky历史菜单
+				else
+					vim.cmd([[YankyRingHistory]])
 				end
 			end,
 			mode = { "n", "x" },

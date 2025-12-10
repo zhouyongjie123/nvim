@@ -2,8 +2,10 @@ return {
 	-- LSP 核心
 	"neovim/nvim-lspconfig",
 	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
+		-- "hrsh7th/cmp-nvim-lsp",
 		"mfussenegger/nvim-jdtls",
+		"saghen/blink.cmp",
+		"williamboman/mason.nvim",
 	},
 	opts = {
 		servers = {
