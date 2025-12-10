@@ -22,6 +22,8 @@ require("lazy").setup({
 		{ import = "plugins" },
 		{ import = "plugins.lang.lua" },
 		{ import = "plugins.lang.python" },
+		{ import = "plugins.lang.java" },
+		{ import = "plugins.lang.c" },
 		{ import = "plugins.ui" },
 		{ import = "plugins.lsp-common" },
 		{ import = "plugins.editor" },
