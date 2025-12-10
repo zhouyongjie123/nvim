@@ -50,7 +50,7 @@ return {
 			silent = true,
 		},
 		{
-			"//",
+			"<leader>nh",
 			"<Cmd>noh<CR>",
 			mode = "n",
 			desc = "Clear highlight",
