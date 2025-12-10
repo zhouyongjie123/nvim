@@ -1,9 +1,8 @@
 return {
 	"gbprod/yanky.nvim",
-	-- recommended = true,
 	desc = "Better Yank/Paste",
 	dependencies = { "folke/snacks.nvim" },
-	-- event = "VeryLazy",
+	lazy = false,
 	opts = function()
 		local yanky = require("yanky")
 		yanky.setup({

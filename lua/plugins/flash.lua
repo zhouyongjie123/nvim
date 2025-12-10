@@ -1,47 +1,53 @@
 return {
 	"folke/flash.nvim",
-	event = "VeryLazy",
-	opts = {},
+	event = "BufReadPost",
+	opts = {
+		label = {
+			rainbow = {
+				enabled = true,
+				shade = 1,
+			},
+		},
+		modes = {
+			char = {
+				enabled = false,
+			},
+		},
+	},
 	keys = {
+    -- stylua: ignore
+    { "f", mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "[Flash] Jump"              },
+    -- stylua: ignore
+    { "<leader>F", mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "[Flash] Treesitter"        },
+    -- stylua: ignore
+    { "<leader>F", mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "[Flash] Treesitter Search" },
+    -- stylua: ignore
+    { "<c-f>",     mode = { "c" },           function() require("flash").toggle() end,            desc = "[Flash] Toggle Search"     },
 		{
-			"<leader><leader>f",
+			"<leader>j",
 			mode = { "n", "x", "o" },
 			function()
-				require("flash").jump()
+				require("flash").jump({
+					search = { mode = "search", max_length = 0 },
+					label = { after = { 0, 0 }, matches = false },
+					jump = { pos = "end" },
+					pattern = "^\\s*\\S\\?", -- match non-whitespace at start plus any character (ignores empty lines)
+				})
 			end,
-			desc = "Flash",
+			desc = "[Flash] Line jump",
 		},
 		{
-			"S",
+			"<leader>k",
 			mode = { "n", "x", "o" },
 			function()
-				require("flash").treesitter()
+				require("flash").jump({
+					search = { mode = "search", max_length = 0 },
+					label = { after = { 0, 0 }, matches = false },
+					jump = { pos = "end" },
+					pattern = "^\\s*\\S\\?", -- match non-whitespace at start plus any character (ignores empty lines)
+				})
 			end,
-			desc = "Flash Treesitter",
-		},
-		{
-			"r",
-			mode = "o",
-			function()
-				require("flash").remote()
-			end,
-			desc = "Remote Flash",
-		},
-		{
-			"R",
-			mode = { "o", "x" },
-			function()
-				require("flash").treesitter_search()
-			end,
-			desc = "Treesitter Search",
-		},
-		{
-			"<c-s>",
-			mode = { "c" },
-			function()
-				require("flash").toggle()
-			end,
-			desc = "Toggle Flash Search",
+			desc = "[Flash] Line jump",
 		},
 	},
 }

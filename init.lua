@@ -21,6 +21,7 @@ require("lazy").setup({
 		-- import your plugins
 		{ import = "plugins" },
 		{ import = "plugins.lang.lua" },
+		{ import = "plugins.lang.python" },
 		{ import = "plugins.ui" },
 		{ import = "plugins.lsp-common" },
 		{ import = "plugins.editor" },
