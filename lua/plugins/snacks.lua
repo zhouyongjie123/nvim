@@ -134,7 +134,7 @@ return {
       -- { "<leader>sp", function() require("snacks").picker.projects() end, desc = "[Snacks] Projects" },
       -- { "<leader>sr", function() require("snacks").picker.recent() end, desc = "[Snacks] Recent" },
       -- git
-      -- { "<C-g>", function() require("snacks").lazygit() end, desc = "[Snacks] Lazygit" },
+      { "<leader>gg", function() require("snacks").lazygit() end, desc = "[Snacks] Lazygit" },
       -- { "<leader>ggl", function() require("snacks").picker.git_log() end, desc = "[Snacks] Git log" },
       -- { "<leader>ggd", function() require("snacks").picker.git_diff() end, desc = "[Snacks] Git diff" },
       -- { "<leader>ggb", function() require("snacks").git.blame_line() end, desc = "[Snacks] Git blame line" },
@@ -255,11 +255,5 @@ return {
 				vim.api.nvim_set_hl(0, "SnacksPickerListCursorLine", { bg = "#313244" })
 			end,
 		})
-	end,
-	config = function(_, opts)
-		vim.api.nvim_create_user_command("LazyGit", function()
-			Snacks.lazygit()
-		end, { desc = "LazyGit" })
-		require("snacks").setup(opts)
 	end,
 }
