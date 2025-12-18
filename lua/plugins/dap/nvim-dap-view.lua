@@ -35,6 +35,6 @@ return {
 		help = {
 			border = "rounded",
 		},
-		auto_toggle = true,
+		auto_toggle = false,
 	},
 }

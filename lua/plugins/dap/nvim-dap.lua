@@ -68,7 +68,8 @@ return {
 		-- end
 		local dap = require("dap")
 		dap.defaults.fallback.external_terminal = {
-			command = "iTerm2",
+			command = "/usr/bin/open", -- macOS 内置的 open 命令
+			args = { "-a", "iTerm2" }, -- 参数：打开 iTerm2 应用
 		}
 	end,
     -- stylua: ignore
