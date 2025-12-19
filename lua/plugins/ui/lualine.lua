@@ -11,7 +11,28 @@ return {
 		sections = {
 			lualine_a = { "mode" },
 			lualine_b = { "branch", "diff", "diagnostics" },
-			lualine_c = { "filename" },
+			lualine_c = {
+				"filename",
+				{
+					function()
+						local deco = vim.g.flutter_tools_decorations or {}
+						local parts = {}
+						if deco.app_version then
+							table.insert(parts, "v" .. deco.app_version)
+						end
+						if deco.device then
+							table.insert(parts, deco.device)
+						end
+						if deco.project_config then
+							table.insert(parts, "[" .. deco.project_config .. "]")
+						end
+						return #parts > 0 and " " .. table.concat(parts, " | ") or ""
+					end,
+					cond = function()
+						return vim.bo.filetype == "dart"
+					end,
+				},
+			},
 			lualine_x = { "lsp_status" },
 			lualine_y = { "encoding", "fileformat", "filetype", "progress" },
 			lualine_z = { "locatgion" },
