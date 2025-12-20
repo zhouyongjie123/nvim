@@ -9,6 +9,7 @@ return {
 	},
 	opts = {
 		servers = {
+			dartls = {},
 			jdtls = {},
 			vue_ls = {},
 			vtsls = {},
