@@ -1,54 +1,30 @@
 return {
 	"folke/noice.nvim",
+	event = "VeryLazy",
 	dependencies = {
 		"MunifTanjim/nui.nvim",
 		-- "rcarriga/nvim-notify",
 	},
 	opts = {
-		presets = {
-			inc_rename = true,
-		},
-		notify = {
-			enabled = true,
-			view = "notify",
-		},
-
-		views = {
-			popup = {
-				border = "rounded",
-				size = {
-					width = "80%",
-					height = "auto",
-				},
-				position = "50%",
-			},
-
-			cmdline_output = {
-				view = "cmdline_output",
-				opts = {
-					buf_options = { filetype = "noice" },
-					position = { row = -1, col = 0 },
-					size = { height = "auto" },
-					border = { top = true, bottom = false, left = false, right = false },
-				},
-			},
-
-			hover = {
-				border = "rounded",
-				size = { width = "90%" },
-				position = { row = 2, col = 2 },
-			},
-
-			notify = {
-				backend = "notify",
-				opts = {
-					timeout = 5000,
-					animate = "slide",
-				},
+		lsp = {
+			override = {
+				["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+				["vim.lsp.util.stylize_markdown"] = true,
+				["cmp.entry.get_documentation"] = true,
 			},
 		},
-
 		routes = {
+			{
+				filter = {
+					event = "msg_show",
+					any = {
+						{ find = "%d+L, %d+B" },
+						{ find = "; after #%d+" },
+						{ find = "; before #%d+" },
+					},
+				},
+				view = "mini",
+			},
 			{
 				filter = { event = "lsp", kind = "hover" },
 				view = "hover",
@@ -68,19 +44,31 @@ return {
 				opts = { skip = true },
 			},
 		},
-
-		history = {
-			enabled = true,
-			view = "popup",
-			opts = { size = { height = 10 } },
-		},
-
-		lsp = {
-			override = {
-				["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-				["vim.lsp.util.stylize_markdown"] = true,
-				["cmp.entry.get_documentation"] = true,
-			},
+		presets = {
+			bottom_search = true,
+			command_palette = true,
+			long_message_to_split = true,
 		},
 	},
+  -- stylua: ignore
+  keys = {
+    { "<leader>sn", "", desc = "+noice"},
+    { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
+    { "<leader>snl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
+    { "<leader>snh", function() require("noice").cmd("history") end, desc = "Noice History" },
+    { "<leader>sna", function() require("noice").cmd("all") end, desc = "Noice All" },
+    { "<leader>snd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
+    { "<leader>snt", function() require("noice").cmd("pick") end, desc = "Noice Picker (Telescope/FzfLua)" },
+    { "<c-f>", function() if not require("noice.lsp").scroll(4) then return "<c-f>" end end, silent = true, expr = true, desc = "Scroll Forward", mode = {"i", "n", "s"} },
+    { "<c-b>", function() if not require("noice.lsp").scroll(-4) then return "<c-b>" end end, silent = true, expr = true, desc = "Scroll Backward", mode = {"i", "n", "s"}},
+  },
+	config = function(_, opts)
+		-- HACK: noice shows messages from before it was enabled,
+		-- but this is not ideal when Lazy is installing plugins,
+		-- so clear the messages in this case.
+		if vim.o.filetype == "lazy" then
+			vim.cmd([[messages clear]])
+		end
+		require("noice").setup(opts)
+	end,
 }
