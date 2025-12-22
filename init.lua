@@ -28,7 +28,7 @@ require("lazy").setup({
 		{ import = "plugins.ui" },
 		{ import = "plugins.lsp-common" },
 		{ import = "plugins.editor" },
-		{ import = "plugins.editor.snip" },
+		{ import = "plugins.editor.snip.luasnip" },
 	},
 	install = { colorscheme = { "habamax" } },
 	checker = { enabled = false },
