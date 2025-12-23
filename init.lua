@@ -42,7 +42,7 @@ require("lazy").setup({
 		border = "rounded",
 	},
 })
--- local lazyvim = require("config.lazyvim")
--- lazyvim.setup({})
+local lazyvim = require("lazyvim")
+lazyvim.setup({})
 require("config/keymaps")
 require("config/options")
