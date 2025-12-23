@@ -18,6 +18,7 @@ require("config/options")
 
 require("lazy").setup({
 	spec = {
+		{ import = "overseer" },
 		{ import = "plugins" },
 		{ import = "plugins.lang.lua" },
 		{ import = "plugins.lang.python" },
