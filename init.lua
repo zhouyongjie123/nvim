@@ -1,3 +1,4 @@
+vim.g.lazyvim_check_order = false
 vim.g.maplocalleader = " "
 vim.g.mapleader = " "
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
