@@ -17,9 +17,10 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
+-- local lazyvim = require("lazyvim")
+-- lazyvim.setup({})
 require("lazy").setup({
 	spec = {
-		-- { "LazyVim/LazyVim" },
 		{ import = "overseer" },
 		{ import = "plugins" },
 		{ import = "plugins.lang.lua" },
@@ -43,7 +44,5 @@ require("lazy").setup({
 		border = "rounded",
 	},
 })
-local lazyvim = require("lazyvim")
-lazyvim.setup({})
 require("config/keymaps")
 require("config/options")
