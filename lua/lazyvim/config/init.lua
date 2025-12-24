@@ -344,7 +344,7 @@ function M.init()
 		vim.deprecate = function() end
 	end
 
-	LazyVim.plugin.setup()
+	-- LazyVim.plugin.setup()
 	M.json.load()
 end
 
