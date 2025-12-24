@@ -42,6 +42,18 @@ return {
 		return opts
 	end,
 	keys = {
-		{ "<leader>cs", "<cmd>AerialToggle<cr>", desc = "Aerial (Symbols)" },
+		{
+			"<leader>ss",
+			function()
+				require("aerial").snacks_picker()
+				-- require("aerial").snacks_picker({
+				-- 	layout = {
+				-- 		preset = "dropdown",
+				-- 		preview = false,
+				-- 	},
+				-- })
+			end,
+			desc = "Aerial (Symbols)",
+		},
 	},
 }
