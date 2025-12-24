@@ -4,7 +4,7 @@ return {
 	priority = 1000,
 	opts = {
 		flavour = "frappe",
-		transparent_background = true,
+		transparent_background = false,
 		lsp_styles = {
 			underlines = {
 				errors = { "undercurl" },

@@ -17,8 +17,8 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
--- local lazyvim = require("lazyvim")
--- lazyvim.setup({})
+local lazyvim = require("lazyvim")
+lazyvim.setup({})
 require("lazy").setup({
 	spec = {
 		{ import = "overseer" },
@@ -38,7 +38,9 @@ require("lazy").setup({
 		lazy = false,
 		version = false,
 	},
-	install = { colorscheme = { "tokyonight", "habamax" } },
+	install = {
+		colorscheme = { "tokyonight", "habamax" },
+	},
 	checker = { enabled = false },
 	ui = {
 		border = "rounded",
