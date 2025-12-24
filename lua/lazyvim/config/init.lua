@@ -16,7 +16,7 @@ local defaults = {
 	-- load the default settings
 	defaults = {
 		autocmds = true, -- lazyvim.config.autocmds
-		keymaps = true, -- lazyvim.config.keymaps
+		keymaps = false, -- lazyvim.config.keymaps
 		-- lazyvim.config.options can't be configured here since that's loaded before lazyvim setup
 		-- if you want to disable loading options, add `package.loaded["lazyvim.config.options"] = true` to the top of your init.lua
 	},
@@ -198,9 +198,9 @@ function M.setup(opts)
 			LazyVim.news.setup()
 			LazyVim.root.setup()
 
-			vim.api.nvim_create_user_command("LazyExtras", function()
-				LazyVim.extras.show()
-			end, { desc = "Manage LazyVim extras" })
+			-- vim.api.nvim_create_user_command("LazyExtras", function()
+			-- 	LazyVim.extras.show()
+			-- end, { desc = "Manage LazyVim extras" })
 
 			vim.api.nvim_create_user_command("LazyHealth", function()
 				vim.cmd([[Lazy! load all]])
@@ -214,36 +214,36 @@ function M.setup(opts)
 				"vscode",
 			})
 
-			if vim.g.lazyvim_check_order == false then
-				return
-			end
-
-			-- Check lazy.nvim import order
-			local imports = require("lazy.core.config").spec.modules
-			local function find(pat, last)
-				for i = last and #imports or 1, last and 1 or #imports, last and -1 or 1 do
-					if imports[i]:find(pat) then
-						return i
-					end
-				end
-			end
-			local lazyvim_plugins = find("^lazyvim%.plugins$")
-			local extras = find("^lazyvim%.plugins%.extras%.", true) or lazyvim_plugins
-			local plugins = find("^plugins$") or math.huge
-			if lazyvim_plugins ~= 1 or extras > plugins then
-				local msg = {
-					"The order of your `lazy.nvim` imports is incorrect:",
-					"- `lazyvim.plugins` should be first",
-					"- followed by any `lazyvim.plugins.extras`",
-					"- and finally your own `plugins`",
-					"",
-					"If you think you know what you're doing, you can disable this check with:",
-					"```lua",
-					"vim.g.lazyvim_check_order = false",
-					"```",
-				}
-				vim.notify(table.concat(msg, "\n"), "warn", { title = "LazyVim" })
-			end
+			-- if vim.g.lazyvim_check_order == false then
+			-- 	return
+			-- end
+			--
+			-- -- Check lazy.nvim import order
+			-- local imports = require("lazy.core.config").spec.modules
+			-- local function find(pat, last)
+			-- 	for i = last and #imports or 1, last and 1 or #imports, last and -1 or 1 do
+			-- 		if imports[i]:find(pat) then
+			-- 			return i
+			-- 		end
+			-- 	end
+			-- end
+			-- local lazyvim_plugins = find("^lazyvim%.plugins$")
+			-- local extras = find("^lazyvim%.plugins%.extras%.", true) or lazyvim_plugins
+			-- local plugins = find("^plugins$") or math.huge
+			-- if lazyvim_plugins ~= 1 or extras > plugins then
+			-- 	local msg = {
+			-- 		"The order of your `lazy.nvim` imports is incorrect:",
+			-- 		"- `lazyvim.plugins` should be first",
+			-- 		"- followed by any `lazyvim.plugins.extras`",
+			-- 		"- and finally your own `plugins`",
+			-- 		"",
+			-- 		"If you think you know what you're doing, you can disable this check with:",
+			-- 		"```lua",
+			-- 		"vim.g.lazyvim_check_order = false",
+			-- 		"```",
+			-- 	}
+			-- 	vim.notify(table.concat(msg, "\n"), "warn", { title = "LazyVim" })
+			-- end
 		end,
 	})
 
@@ -329,7 +329,7 @@ function M.init()
 	-- load options here, before lazy init while sourcing plugin modules
 	-- this is needed to make sure options will be correctly applied
 	-- after installing missing plugins
-	M.load("options")
+	-- M.load("options")
 
 	-- save some options to track defaults
 	M._options.indentexpr = vim.o.indentexpr
