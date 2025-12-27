@@ -1,4 +1,80 @@
 local map = vim.keymap.set
+-- better up/down
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+-- Clear search, diff update and redraw
+-- taken from runtime/lua/_editor.lua
+map(
+	"n",
+	"<leader>nh",
+	"<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+	{ desc = "Redraw / Clear hlsearch / Diff Update" }
+)
+-- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+-- 优化搜索方向
+map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
+map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
+map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
+map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev Search Result" })
+map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
+map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
+
+-- save file
+map({ "i", "x", "n", "s" }, "<leader>w", "<cmd>w<cr><esc>", { desc = "Save File" })
+-- better indenting
+map("x", "<", "<gv")
+map("x", ">", ">gv")
+
+-- better indenting
+map("x", "<", "<gv")
+map("x", ">", ">gv")
+
+-- lazygit
+if vim.fn.executable("lazygit") == 1 then
+	map("n", "<leader>gg", function()
+		Snacks.lazygit({ cwd = LazyVim.root.git() })
+	end, { desc = "Lazygit (Root Dir)" })
+	map("n", "<leader>gG", function()
+		Snacks.lazygit()
+	end, { desc = "Lazygit (cwd)" })
+end
+
+map("n", "<leader>gL", function()
+	Snacks.picker.git_log()
+end, { desc = "Git Log (cwd)" })
+map("n", "<leader>gb", function()
+	Snacks.picker.git_log_line()
+end, { desc = "Git Blame Line" })
+map("n", "<leader>gf", function()
+	Snacks.picker.git_log_file()
+end, { desc = "Git Current File History" })
+map("n", "<leader>gl", function()
+	Snacks.picker.git_log({ cwd = LazyVim.root.git() })
+end, { desc = "Git Log" })
+map({ "n", "x" }, "<leader>gB", function()
+	Snacks.gitbrowse()
+end, { desc = "Git Browse (open)" })
+map({ "n", "x" }, "<leader>gY", function()
+	Snacks.gitbrowse({
+		open = function(url)
+			vim.fn.setreg("+", url)
+		end,
+		notify = false,
+	})
+end, { desc = "Git Browse (copy)" })
+
+-- toggle options
+Snacks.toggle.dim():map("<leader>uD")
+Snacks.toggle.indent():map("<leader>ug")
+-- Snacks.toggle.scroll():map("<leader>uS")
+require("snacks.scroll").enable()
+
+if vim.lsp.inlay_hint then
+	Snacks.toggle.inlay_hints():map("<leader>uh")
+end
+
 -- 复用 opt 参数
 local opt = { noremap = true, silent = true }
 -- 删除操作（不复制到寄存器）
@@ -73,3 +149,4 @@ require("config.bufferline-keymaps").setup(map, opt)
 require("config.nvim-tree-keymaps").setup(map, opt)
 require("config.code-keymaps").setup(map, opt)
 require("config.yanky-keymaps").setup(map, opt)
+require("lazyvim.config.keymaps")

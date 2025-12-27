@@ -49,14 +49,14 @@ return {
 			noremap = true,
 			silent = true,
 		},
-		{
-			"<leader>nh",
-			"<Cmd>noh<CR>",
-			mode = "n",
-			desc = "Clear highlight",
-			noremap = true,
-			silent = true,
-		},
+		-- {
+		-- 	"<leader>nh",
+		-- 	"<Cmd>noh<CR>",
+		-- 	mode = "n",
+		-- 	desc = "Clear highlight",
+		-- 	noremap = true,
+		-- 	silent = true,
+		-- },
 
 		{ "/" },
 		{ "?" },
