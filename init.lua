@@ -46,5 +46,4 @@ require("lazy").setup({
 		border = "rounded",
 	},
 })
-require("config/keymaps")
-require("config/options")
+require("config.init")

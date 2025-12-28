@@ -16,7 +16,6 @@ return {
 			},
 		})
 		-- 加载所有语言的自定义片段
-		-- require("plugins.editor.snip.snippets")
 		require("plugins.editor.snip.snippets")
 	end,
 }
