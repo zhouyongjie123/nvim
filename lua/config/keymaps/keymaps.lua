@@ -4,15 +4,12 @@ map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true
 map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 map({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
--- Clear search, diff update and redraw
--- taken from runtime/lua/_editor.lua
 map(
 	"n",
 	"<leader>nh",
 	"<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
 	{ desc = "Redraw / Clear hlsearch / Diff Update" }
 )
--- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 -- 优化搜索方向
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
 map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
@@ -68,8 +65,6 @@ end, { desc = "Git Browse (copy)" })
 -- toggle options
 Snacks.toggle.dim():map("<leader>uD")
 Snacks.toggle.indent():map("<leader>ug")
--- Snacks.toggle.scroll():map("<leader>uS")
-require("snacks.scroll").enable()
 
 if vim.lsp.inlay_hint then
 	Snacks.toggle.inlay_hints():map("<leader>uh")
@@ -89,13 +84,6 @@ map("n", "c", '"_c', { desc = "Change without copying to register" })
 map("v", "c", '"_c', { desc = "Change visually selected without copying to register" })
 map("n", "cc", '"_cc', { desc = "Change line without copying to register" })
 map("n", "c<leader>", '"_ciw', { desc = "Change without copying to register" })
--- 粘贴操作（先清空目标内容，再从系统剪贴板粘贴）
--- map("v", "p", '"_c<Esc>"+p', { desc = "Paste from system clipboard (overwrite)" })
--- map("v", "P", '"_c<Esc>"+P', { desc = "Paste before from system clipboard (overwrite)" })
-
--- 复制操作（复制到系统剪贴板）
--- map("v", "y", '"+y', { desc = "Copy to system clipboard" })
--- map("n", "yy", '"+yy', { desc = "Copy line to system clipboard" })
 
 map("n", "<leader>ve", "ggVG", opt)
 
@@ -136,9 +124,6 @@ map("v", "K", ":move '<-2<CR>gv-gv", opt)
 -- 上下滚动浏览
 map("n", "J", "6j", opt)
 map("n", "K", "6k", opt)
-
--- 在visual 模式里粘贴不要复制
--- map("v", "p", '"_dP', opt)
 
 -- insert 模式下，跳到行首行尾
 map("i", "<C-h>", "<ESC>i", opt)
