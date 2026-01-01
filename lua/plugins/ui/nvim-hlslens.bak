@@ -49,23 +49,16 @@ return {
 			noremap = true,
 			silent = true,
 		},
-		-- {
-		-- 	"<leader>nh",
-		-- 	"<Cmd>noh<CR>",
-		-- 	mode = "n",
-		-- 	desc = "Clear highlight",
-		-- 	noremap = true,
-		-- 	silent = true,
-		-- },
 
 		{ "/" },
 		{ "?" },
 	},
 	opts = {
+		calm_down = true,
 		nearest_only = true,
+		nearest_float_when = "always",
 	},
 	config = function(_, opts)
-		-- require('hlslens').setup() is not required
 		require("scrollbar.handlers.search").setup(opts)
 		vim.api.nvim_set_hl(0, "HlSearchLens", { link = "CurSearch" })
 		vim.api.nvim_set_hl(0, "HlSearchLensNear", { fg = "#CBA6F7" })

@@ -70,6 +70,9 @@ if vim.lsp.inlay_hint then
 	Snacks.toggle.inlay_hints():map("<leader>uh")
 end
 
+map("n", "<leader>q", function()
+	require("hlslens").start()
+end)
 -- 复用 opt 参数
 local opt = { noremap = true, silent = true }
 -- 删除操作（不复制到寄存器）
