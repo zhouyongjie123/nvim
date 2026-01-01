@@ -28,6 +28,7 @@ require("lazy").setup({
 		{ import = "plugins.lang.java" },
 		{ import = "plugins.lang.c" },
 		{ import = "plugins.lang.dart" },
+		{ import = "plugins.lang.http" },
 		{ import = "plugins.dap" },
 		{ import = "plugins.ui" },
 		{ import = "plugins.lsp-common" },
