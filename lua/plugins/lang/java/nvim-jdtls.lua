@@ -79,6 +79,7 @@ return {
 	config = function(_, opts)
 		-- 查找调试插件的 bundles（java-debug-adapter/java-test）
 		local bundles = {}
+		vim.list_extend(bundles, require("spring_boot").java_extensions())
 		local mason_ok, mason_registry = pcall(require, "mason-registry")
 		if mason_ok then
 			-- 检查 java-debug-adapter 是否安装
