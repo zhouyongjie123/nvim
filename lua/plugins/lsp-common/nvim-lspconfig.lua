@@ -3,7 +3,7 @@ return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		-- "hrsh7th/cmp-nvim-lsp",
-		"mfussenegger/nvim-jdtls",
+		-- "mfussenegger/nvim-jdtls",
 		"saghen/blink.cmp",
 		"williamboman/mason.nvim",
 	},
