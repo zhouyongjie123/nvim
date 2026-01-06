@@ -3,14 +3,14 @@ return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		-- "hrsh7th/cmp-nvim-lsp",
-		"mfussenegger/nvim-jdtls",
+		-- "mfussenegger/nvim-jdtls",
 		"saghen/blink.cmp",
 		"williamboman/mason.nvim",
 	},
 	opts = {
 		servers = {
 			dartls = {},
-			jdtls = {},
+			-- jdtls = {},
 			vue_ls = {},
 			vtsls = {},
 			marksman = {},
@@ -51,9 +51,9 @@ return {
 			},
 		},
 		setup = {
-			jdtls = function()
-				return true -- avoid duplicate servers
-			end,
+			-- jdtls = function()
+			-- 	return true -- avoid duplicate servers
+			-- end,
 
 			clangd = function(_, opts)
 				-- local clangd_ext_opts = LazyVim.opts("clangd_extensions.nvim")
