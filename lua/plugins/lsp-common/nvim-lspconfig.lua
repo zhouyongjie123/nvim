@@ -19,6 +19,30 @@ return {
 					},
 				},
 			},
+			basedpyright = {
+				settings = {
+					basedpyright = {
+						analysis = {
+							diagnosticMode = "off",
+							typeCheckingMode = "off",
+							reportMissingTypeAnnotations = "none",
+							reportUnusedVariable = "none",
+							reportUnusedImport = "none",
+							exclude = {
+								"**/venv/**",
+								"**/__pycache__/**",
+								"**/build/**",
+								"**/*.pyc",
+							},
+							venvPath = vim.fn.getenv("VIRTUAL_ENV") or vim.fn.getcwd() .. "/venv",
+							pythonPath = vim.fn.exepath("python3") or vim.fn.getcwd() .. "/venv/bin/python3",
+							inlayHints = {
+								callArgumentNames = true,
+							},
+						},
+					},
+				},
+			},
 			clangd = {
 				keys = {
 					{ "<leader>ch", "<cmd>LspClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
@@ -56,42 +80,12 @@ return {
 			},
 		},
 		setup = {
-			jdtls = function()
-				return true -- avoid duplicate servers
-			end,
+			-- jdtls = function()
+			-- 	return true -- avoid duplicate servers
+			-- end,
 
 			clangd = function(_, opts)
-				-- local clangd_ext_opts = LazyVim.opts("clangd_extensions.nvim")
-
-				local clangd_ext_opts = {
-					extensions = {
-						autoSetHints = true,
-						inlay_hints = {
-							show_parameter_hints = true,
-							parameter_hints_prefix = "<- ",
-							other_hints_prefix = "=> ",
-						},
-						ast = {
-							role_icons = {
-								type = "",
-								declaration = "",
-								expression = "",
-								specifier = "",
-								statement = "",
-								["template argument"] = "",
-							},
-							kind_icons = {
-								Compound = "",
-								Recovery = "",
-								TranslationUnit = "",
-								PackExpansion = "",
-								TemplateTypeParm = "",
-								TemplateTemplateParm = "",
-								TemplateParamObject = "",
-							},
-						},
-					},
-				}
+				local clangd_ext_opts = LazyVim.opts("clangd_extensions.nvim")
 				require("clangd_extensions").setup(
 					vim.tbl_deep_extend("force", clangd_ext_opts or {}, { server = opts })
 				)
