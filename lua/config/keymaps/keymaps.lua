@@ -20,6 +20,8 @@ map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result
 
 -- save file
 map({ "i", "x", "n", "s" }, "<leader>w", "<cmd>wa<cr><esc>", { desc = "Save File" })
+-- quit
+map({ "n" }, "q", "<cmd>q<cr><esc>", { desc = "quit" })
 -- better indenting
 map("x", "<", "<gv")
 map("x", ">", ">gv")
