@@ -1,9 +1,6 @@
 return {
-	-- LSP 核心
 	"neovim/nvim-lspconfig",
 	dependencies = {
-		-- "hrsh7th/cmp-nvim-lsp",
-		-- "mfussenegger/nvim-jdtls",
 		"saghen/blink.cmp",
 		"williamboman/mason.nvim",
 	},
@@ -14,6 +11,14 @@ return {
 			vue_ls = {},
 			vtsls = {},
 			marksman = {},
+			ruff = {
+				cmd_env = { RUFF_TRACE = "messages" },
+				init_options = {
+					settings = {
+						logLevel = "error",
+					},
+				},
+			},
 			clangd = {
 				keys = {
 					{ "<leader>ch", "<cmd>LspClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },

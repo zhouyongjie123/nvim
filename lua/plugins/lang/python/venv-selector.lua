@@ -2,10 +2,8 @@ return {
 	"linux-cultist/venv-selector.nvim",
 	cmd = "VenvSelect",
 	opts = {
-		settings = {
-			options = {
-				notify_user_on_venv_activation = true,
-			},
+		options = {
+			notify_user_on_venv_activation = true,
 		},
 		search_venv_managers = true, -- 只保留venv，关闭poetry/pipenv等
 		search_workspace = true, -- 搜索当前项目目录
