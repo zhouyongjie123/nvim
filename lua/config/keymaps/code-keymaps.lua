@@ -19,6 +19,14 @@ M.setup = function(map, opt)
 	map("n", "<leader>sh", buf.hover, opt)
 	map({ "n", "x" }, "<leader>su", find_usages, { noremap = true, silent = true, desc = "查找用法 (Find Usages)" })
 
+	-- Call Hierarchy（类似 IDEA 的 Hierarchy 功能）
+	map("n", "<leader>sch", function()
+		require("snacks").picker.lsp_incoming_calls()
+	end, { noremap = true, silent = true, desc = "被谁调用 (Incoming Calls)" })
+	map("n", "<leader>sco", function()
+		require("snacks").picker.lsp_outgoing_calls()
+	end, { noremap = true, silent = true, desc = "调用了谁 (Outgoing Calls)" })
+
 	map("n", "<C-k>", buf.signature_help, opt)
 	map("n", "<leader>rn", function()
 		return ":IncRename " .. vim.fn.expand("<cword>")

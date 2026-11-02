@@ -106,6 +106,8 @@ map("n", "<M-h>", "<C-w>h", opt)
 map("n", "<M-j>", "<C-w>j", opt)
 map("n", "<M-k>", "<C-w>k", opt)
 map("n", "<M-l>", "<C-w>l", opt)
+-- 跳转到上一次位置（类似浏览器后退）
+map("n", "gb", "<C-o>", opt)
 -- 左右比例控制
 map("n", "<C-Left>", ":vertical resize -2<CR>", opt)
 map("n", "<C-Right>", ":vertical resize +2<CR>", opt)
