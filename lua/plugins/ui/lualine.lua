@@ -3,7 +3,7 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	opts = {
 		options = {
-			theme = "catppuccin",
+			theme = "auto",
 			always_divide_middle = false,
 			component_separators = { left = "", right = "" },
 			section_separators = { left = "", right = "" },
@@ -35,24 +35,8 @@ return {
 			},
 			lualine_x = { "lsp_status" },
 			lualine_y = { "encoding", "fileformat", "filetype", "progress" },
-			lualine_z = { "locatgion" },
+			lualine_z = { "location" },
 		},
-		-- winbar = {
-		-- 	lualine_a = {
-		-- 		"filename",
-		-- 	},
-		-- 	lualine_b = {
-		-- 		{
-		-- 			function()
-		-- 				return ""
-		-- 			end,
-		-- 			color = "Comment",
-		-- 		},
-		-- 	},
-		-- 	lualine_x = {
-		-- 		"lsp_status",
-		-- 	},
-		-- },
 		inactive_winbar = {
 			lualine_b = {
 				function()
@@ -62,7 +46,6 @@ return {
 		},
 	},
 	config = function(_, opts)
-		local mocha = require("catppuccin.palettes").get_palette("mocha")
 		local function show_macro_recording()
 			local recording_register = vim.fn.reg_recording()
 			if recording_register == "" then
@@ -73,7 +56,7 @@ return {
 		end
 		local macro_recording = {
 			show_macro_recording,
-			color = { fg = "#333333", bg = mocha.red },
+			color = { fg = "#333333", bg = "#f07178" },
 			separator = {
 				left = "",
 				right = "",

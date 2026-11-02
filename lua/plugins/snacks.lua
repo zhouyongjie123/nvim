@@ -110,6 +110,19 @@ return {
 				height = 0.9,
 				width = 0.9,
 				zindex = 50,
+				keys = {
+					-- 在终端模式下直接按 esc 隐藏
+					["<esc>"] = {
+						"<esc>",
+						function(self)
+							self:hide()
+						end,
+						mode = "t",
+						desc = "Hide terminal",
+					},
+					-- 禁用默认的双击 esc 进入命令模式
+					term_normal = false,
+				},
 			},
 		},
 	},
@@ -119,6 +132,7 @@ return {
       -- { "<A-w>", function() require("snacks").bufdelete() end, desc = "[Snacks] Delete buffer" },
       { "<leader>si", function() require("snacks").image.hover() end, desc = "[Snacks] Display image" },
       { "<C-Bslash>", function() require("snacks").terminal() end, desc = "[Snacks] Toggle terminal", mode = {"n",  "t"} },
+      { "<leader>t", function() require("snacks").terminal() end, desc = "Toggle floating terminal", mode = {"n",  "t"} },
       -- Notification
       -- { "<leader>sn", function() require("snacks").picker.notifications() end, desc = "[Snacks] Notification history" },
       -- { "<leader>n", function() require("snacks").notifier.show_history() end, desc = "[Snacks] Notification history" },

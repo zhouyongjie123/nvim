@@ -60,6 +60,52 @@ function M.load()
 	return data.configs or {}
 end
 
+--- 简单的 JSON 美化（2 空格缩进）
+---@param json string
+---@return string
+local function pretty_json(json)
+	local result = ""
+	local indent = 0
+	local in_string = false
+	local escape = false
+
+	local i = 1
+	while i <= #json do
+		local c = json:sub(i, i)
+
+		if escape then
+			result = result .. c
+			escape = false
+		elseif c == "\\" and in_string then
+			result = result .. c
+			escape = true
+		elseif c == '"' then
+			result = result .. c
+			in_string = not in_string
+		elseif in_string then
+			result = result .. c
+		elseif c == "{" or c == "[" then
+			result = result .. c .. "\n"
+			indent = indent + 2
+			result = result .. string.rep(" ", indent)
+		elseif c == "}" or c == "]" then
+			result = result .. "\n"
+			indent = indent - 2
+			result = result .. string.rep(" ", indent) .. c
+		elseif c == "," then
+			result = result .. ",\n" .. string.rep(" ", indent)
+		elseif c == ":" then
+			result = result .. ": "
+		else
+			result = result .. c
+		end
+
+		i = i + 1
+	end
+
+	return result
+end
+
 --- 保存配置列表到 JSON 文件
 ---@param configs RunConfig[]
 function M.save(configs)
@@ -77,10 +123,7 @@ function M.save(configs)
 	}
 
 	local json = vim.json.encode(data)
-	-- 美化输出（简单缩进）
-	json = json:gsub('("configs":%[)', '"configs": [\n  ')
-	json = json:gsub('("name":)', '\n    "name":')
-	json = json:gsub("(%]}),", "%1", 1)
+	json = pretty_json(json)
 
 	local file = io.open(path, "w")
 	if file then

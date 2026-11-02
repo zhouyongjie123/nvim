@@ -3,7 +3,7 @@ return {
 	name = "catppuccin",
 	priority = 1000,
 	opts = {
-		flavour = "frappe",
+		flavour = "matcha",
 		transparent_background = false,
 		lsp_styles = {
 			underlines = {
@@ -44,15 +44,4 @@ return {
 	config = function(_, opts)
 		require("catppuccin").setup(opts)
 	end,
-	specs = {
-		{
-			"akinsho/bufferline.nvim",
-			optional = true,
-			opts = function(_, opts)
-				if (vim.g.colors_name or ""):find("catppuccin") then
-					opts.highlights = require("catppuccin.special.bufferline").get_theme()
-				end
-			end,
-		},
-	},
 }

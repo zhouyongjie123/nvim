@@ -21,10 +21,10 @@ M.setup = function(map, opt)
 
 	-- Call Hierarchy（类似 IDEA 的 Hierarchy 功能）
 	map("n", "<leader>sch", function()
-		require("snacks").picker.lsp_incoming_calls()
+		require("snacks").picker.lsp_incoming_calls({ auto_confirm = false })
 	end, { noremap = true, silent = true, desc = "被谁调用 (Incoming Calls)" })
 	map("n", "<leader>sco", function()
-		require("snacks").picker.lsp_outgoing_calls()
+		require("snacks").picker.lsp_outgoing_calls({ auto_confirm = false })
 	end, { noremap = true, silent = true, desc = "调用了谁 (Outgoing Calls)" })
 
 	map("n", "<C-k>", buf.signature_help, opt)
@@ -54,5 +54,24 @@ M.setup = function(map, opt)
 	map("n", "gE", function()
 		vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
 	end, { noremap = true, desc = "goto previous error" })
+
+	-- gi: 先尝试跳转到实现，没有则跳转到定义
+	map("n", "gi", function()
+		-- 先尝试 implementation
+		local implementation_found = false
+		vim.lsp.buf_request(0, "textDocument/implementation", vim.lsp.util.make_position_params(), function(err, result)
+			if not err and result and not vim.tbl_isempty(result) then
+				implementation_found = true
+				vim.lsp.util.jump_to_location(result[1], "utf-8")
+			end
+		end)
+
+		-- 如果没有 implementation，尝试 definition
+		vim.defer_fn(function()
+			if not implementation_found then
+				vim.lsp.buf.definition()
+			end
+		end, 100)
+	end, { noremap = true, silent = true, desc = "Goto Implementation (fallback to Definition)" })
 end
 return M

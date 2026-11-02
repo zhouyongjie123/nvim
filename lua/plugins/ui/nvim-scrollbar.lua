@@ -1,5 +1,8 @@
 return {
 	"petertriho/nvim-scrollbar",
+	init = function()
+		vim.g.scrollbar_v2_notice = false
+	end,
 	opts = {
 		handelers = {
 			gitsigns = true, -- Requires gitsigns

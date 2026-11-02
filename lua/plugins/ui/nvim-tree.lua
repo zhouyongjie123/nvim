@@ -38,31 +38,22 @@ return {
 					quit_on_open = false,
 				},
 			},
-			system_open = {
-				cmd = "wsl-open", -- mac 直接设置为 open
-			},
 		},
 		config = function(_, opts)
 			require("nvim-tree").setup(opts)
 
 			-- 显示/隐藏隐藏文件命令
 			vim.api.nvim_create_user_command("ShowDotFile", function()
-				local nvim_tree = require("nvim-tree")
-				nvim_tree.setup({ filters = { dotfiles = false } })
-				-- 刷新当前树
-				local view = require("nvim-tree.view")
-				if view.is_visible() then
-					require("nvim-tree.renderer"):draw()
+				local explorer = require("nvim-tree.core").get_explorer()
+				if explorer and explorer.filters.state.dotfiles then
+					require("nvim-tree.api").filter.dotfiles.toggle()
 				end
 			end, { desc = "显示隐藏文件" })
 
 			vim.api.nvim_create_user_command("HideDotFile", function()
-				local nvim_tree = require("nvim-tree")
-				nvim_tree.setup({ filters = { dotfiles = true } })
-				-- 刷新当前树
-				local view = require("nvim-tree.view")
-				if view.is_visible() then
-					require("nvim-tree.renderer"):draw()
+				local explorer = require("nvim-tree.core").get_explorer()
+				if explorer and not explorer.filters.state.dotfiles then
+					require("nvim-tree.api").filter.dotfiles.toggle()
 				end
 			end, { desc = "隐藏隐藏文件" })
 		end,
