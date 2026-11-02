@@ -1,9 +1,0 @@
-return {
-	"JavaHello/spring-boot.nvim",
-	ft = { "java", "yaml", "jproperties" },
-	dependencies = {
-		"nvim-java/nvim-java",
-	},
-	---@type bootls.Config
-	opts = {},
-}

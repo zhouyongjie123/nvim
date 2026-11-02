@@ -36,13 +36,13 @@ return {
 			notify = true,
 			snacks = true,
 			telescope = true,
+			treesitter = true,
 			treesitter_context = true,
 			which_key = true,
 		},
 	},
 	config = function(_, opts)
 		require("catppuccin").setup(opts)
-		vim.cmd.colorscheme("catppuccin")
 	end,
 	specs = {
 		{

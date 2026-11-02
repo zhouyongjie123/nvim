@@ -11,10 +11,9 @@ return {
 			},
 			ensure_installed = {
 				"lua_ls",
-				"rust_analyzer",
-				"jdtls",
-				"clangd",
+				-- "rust_analyzer",
 				"vue_ls",
+				"gopls",
 			},
 		},
 	},
@@ -22,8 +21,6 @@ return {
 		"mason-org/mason.nvim",
 		opts = {
 			ensure_installed = {
-				"java-debug-adapter",
-				"java-test",
 				"markdownlint-cli2",
 				"markdown-toc",
 			},

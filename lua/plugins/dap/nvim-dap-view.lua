@@ -26,8 +26,9 @@ return {
 			height = 0.25,
 			position = "below",
 			terminal = {
-				width = 0.1,
+				width = 0.5,
 				position = "right",
+				start_hidden = false, -- 一起来就能看到程序 stdout
 				-- List of debug adapters for which the terminal should be ALWAYS hidden
 				hide = {},
 			},
@@ -35,6 +36,6 @@ return {
 		help = {
 			border = "rounded",
 		},
-		auto_toggle = false,
+		auto_toggle = true, -- launch/attach 自动开面板，terminate/disconnect 自动关
 	},
 }

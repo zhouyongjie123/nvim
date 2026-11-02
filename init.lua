@@ -1,5 +1,6 @@
 vim.g.maplocalleader = " "
 vim.g.mapleader = " "
+vim.opt.termguicolors = true
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -20,17 +21,17 @@ local lazyvim = require("lazyvim")
 lazyvim.setup({})
 require("lazy").setup({
 	spec = {
-		{ import = "overseer" },
+		--{ import = "overseer" },
 		{ import = "plugins" },
 		{ import = "plugins.lang.lua" },
-		{ import = "plugins.lang.python" },
-		{ import = "plugins.lang.java" },
-		{ import = "plugins.lang.c" },
-		{ import = "plugins.lang.dart" },
-		{ import = "plugins.lang.http" },
+		{ import = "plugins.lang.go" },
+		--{ import = "plugins.lang.python" },
+		--{ import = "plugins.lang.dart" },
+		--{ import = "plugins.lang.http" },
 		{ import = "plugins.dap" },
 		{ import = "plugins.ui" },
 		{ import = "plugins.lsp-common" },
+		-- { import = "plugins.lsp-common.nvim-treesitter" },
 		{ import = "plugins.editor" },
 		{ import = "plugins.editor.snip.luasnip" },
 	},

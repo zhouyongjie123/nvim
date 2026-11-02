@@ -11,7 +11,7 @@ local defaults = {
 	-- colorscheme can be a string like `catppuccin` or a function that will load the colorscheme
 	---@type string|fun()
 	colorscheme = function()
-		require("catppuccin").load()
+		vim.cmd.colorscheme("palenight")
 	end,
 	-- load the default settings
 	defaults = {

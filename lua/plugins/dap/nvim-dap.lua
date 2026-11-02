@@ -7,24 +7,9 @@ return {
 			"theHamsta/nvim-dap-virtual-text",
 			opts = {},
 		},
-		{
-			"mason-org/mason.nvim",
-			opts = { ensure_installed = { "java-debug-adapter", "java-test" } },
-		},
 		"jay-babu/mason-nvim-dap.nvim", -- 确保有这个依赖
 	},
 	opts = function()
-		-- local dap = require("dap")
-		-- dap.configurations.java = {
-		-- 	{
-		-- 		type = "java",
-		-- 		request = "attach",
-		-- 		name = "Debug (Attach) - Remote",
-		-- 		hostName = "127.0.0.1",
-		-- 		port = 5005,
-		-- 	},
-		-- }
-
         --stylua: ignore
         local dap_breakpoint = {
           breakpoint = { text = "", texthl = "DapBreakpoint", linehl = "DapBreakpoint", numhl = "DapBreakpoint" }, -- Nerd font: nf-cod-activate_breakpoints
@@ -40,32 +25,6 @@ return {
 		vim.fn.sign_define("DapStopped", dap_breakpoint.stopped)
 	end,
 	config = function()
-		-- require("mason-nvim-dap").setup({
-		-- 	automatic_installation = true,
-		-- 	handlers = {},
-		-- 	ensure_installed = {
-		-- 		"java-debug-adapter", -- Java 调试适配器
-		-- 		"java-test", -- Java 测试适配器（可选）
-		-- 	},
-		-- })
-		-- vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
-		--
-		-- local icons = {
-		-- 	dap = {
-		-- 		Stopped = { " ", "DiagnosticWarn", "DapStoppedLine" },
-		-- 		Breakpoint = " ",
-		-- 		BreakpointCondition = " ",
-		-- 		BreakpointRejected = { " ", "DiagnosticError" },
-		-- 		LogPoint = ".>",
-		-- 	},
-		-- }
-		-- for name, sign in pairs(icons.dap) do
-		-- 	sign = type(sign) == "table" and sign or { sign }
-		-- 	vim.fn.sign_define(
-		-- 		"Dap" .. name,
-		-- 		{ text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
-		-- 	)
-		-- end
 		local dap = require("dap")
 		dap.defaults.fallback.external_terminal = {
 			command = "/usr/bin/open", -- macOS 内置的 open 命令

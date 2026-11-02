@@ -139,3 +139,10 @@ require("config.keymaps.bufferline-keymaps").setup(map, opt)
 require("config.keymaps.nvim-tree-keymaps").setup(map, opt)
 require("config.keymaps.code-keymaps").setup(map, opt)
 require("config.keymaps.yanky-keymaps").setup(map, opt)
+require("config.keymaps.go-run-keymaps").setup(map, opt)
+
+-- 运行配置选择器
+require("config.run").setup()
+map("n", "<leader>rc", function()
+	require("config.run.picker").open()
+end, { desc = "运行配置选择器" })

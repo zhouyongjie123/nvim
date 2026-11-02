@@ -34,8 +34,8 @@ return {
 				open_file = {
 					-- 首次打开大小适配
 					resize_window = true,
-					-- 打开文件时关闭
-					quit_on_open = true,
+					-- 打开文件后保持目录树开启
+					quit_on_open = false,
 				},
 			},
 			system_open = {
@@ -44,6 +44,27 @@ return {
 		},
 		config = function(_, opts)
 			require("nvim-tree").setup(opts)
+
+			-- 显示/隐藏隐藏文件命令
+			vim.api.nvim_create_user_command("ShowDotFile", function()
+				local nvim_tree = require("nvim-tree")
+				nvim_tree.setup({ filters = { dotfiles = false } })
+				-- 刷新当前树
+				local view = require("nvim-tree.view")
+				if view.is_visible() then
+					require("nvim-tree.renderer"):draw()
+				end
+			end, { desc = "显示隐藏文件" })
+
+			vim.api.nvim_create_user_command("HideDotFile", function()
+				local nvim_tree = require("nvim-tree")
+				nvim_tree.setup({ filters = { dotfiles = true } })
+				-- 刷新当前树
+				local view = require("nvim-tree.view")
+				if view.is_visible() then
+					require("nvim-tree.renderer"):draw()
+				end
+			end, { desc = "隐藏隐藏文件" })
 		end,
 	},
 }
